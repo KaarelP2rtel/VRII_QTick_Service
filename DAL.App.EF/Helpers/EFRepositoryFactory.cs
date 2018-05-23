@@ -19,9 +19,8 @@ namespace DAL.App.EF.Helpers
         {
             return new Dictionary<Type, Func<IDataContext, object>>()
             {
-                {typeof(IPersonRepository), (dataContext) => new EFPersonRepository(dataContext as ApplicationDbContext) },
-                {typeof(IContactRepository), (dataContext) => new EFContactRepository(dataContext as ApplicationDbContext) },
-                {typeof(IContactTypeRepository), (dataContext) => new EFContactTypeRepository(dataContext as ApplicationDbContext) },
+               
+                //{typeof(IContactTypeRepository), (dataContext) => new EFContactTypeRepository(dataContext as ApplicationDbContext) },
             };
         }
 

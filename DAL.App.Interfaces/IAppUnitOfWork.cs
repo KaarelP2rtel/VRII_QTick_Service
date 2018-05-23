@@ -10,10 +10,10 @@ namespace DAL.App.Interfaces
 {
     public interface IAppUnitOfWork : IUnitOfWork
     {
-        IPersonRepository People { get; }
+        //IPersonRepository People { get; }
 
-        IRepository<Contact> Contacts { get; }
-        IRepository<ContactType> ContactTypes { get; }
+        //IRepository<Contact> Contacts { get; }
+
 
     }
 }
