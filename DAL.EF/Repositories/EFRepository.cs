@@ -67,5 +67,10 @@ namespace DAL.EF.Repositories
         {
             RepositoryDbSet.Remove(Find(id));
         }
+
+        public bool Exists(TEntity entity)
+        {
+            return RepositoryDbSet.Any(e => e == entity);
+        }
     }
 }

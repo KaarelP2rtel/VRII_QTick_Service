@@ -8,5 +8,6 @@ namespace DAL.App.Interfaces.Repositories
 {
     public interface IEventRepository : IRepository<Event>
     {
+
     }
 }

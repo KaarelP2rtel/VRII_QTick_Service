@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DAL.App.EF;
+﻿using DAL.App.EF;
 using DAL.App.EF.Helpers;
-using DAL.App.EF.Repositories;
 using DAL.App.Interfaces;
 using DAL.App.Interfaces.Helpers;
-using DAL.App.Interfaces.Repositories;
-using DAL.EF.Repositories;
 using DAL.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Builder;
@@ -17,12 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebApp.Models;
-using WebApp.Services;
-using BL;
-using BL.Services;
-using BL.Factories;
-using Swashbuckle.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApp
@@ -48,8 +35,8 @@ namespace WebApp
 
             // Add application services.
 
-            services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IPersonFactory, PersonFactory>();
+            //services.AddTransient<IPersonService, PersonService>();
+            
 
             // Add uow to DI container
 

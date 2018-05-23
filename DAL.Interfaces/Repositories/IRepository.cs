@@ -23,5 +23,7 @@ namespace DAL.Interfaces.Repositories
         void Remove(TEntity entity);
         void Remove(params object[] id);
 
+        bool Exists(TEntity entity);
+
     }
 }
