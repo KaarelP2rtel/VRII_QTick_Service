@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.App.Interfaces.Repositories
 {
-    public interface ITicketTypeRepository : IRepository<Ticket>
+    public interface ITicketTypeRepository : IRepository<TicketType>
     {
     }
 }
