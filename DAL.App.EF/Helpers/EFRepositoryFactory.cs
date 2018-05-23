@@ -20,7 +20,19 @@ namespace DAL.App.EF.Helpers
             return new Dictionary<Type, Func<IDataContext, object>>()
             {
                
-                //{typeof(IContactTypeRepository), (dataContext) => new EFContactTypeRepository(dataContext as ApplicationDbContext) },
+                {typeof(IEventRepository), (dataContext) => new EFEventRepository(dataContext as ApplicationDbContext) },
+                {typeof(IEventTypeRepository), (dataContext) => new EFEventTypeRepository(dataContext as ApplicationDbContext) },
+                {typeof(IInvoiceRowRepository), (dataContext) => new EFInvoiceRepository(dataContext as ApplicationDbContext) },
+                {typeof(IInvoiceRepository), (dataContext) => new EFInvoiceRepository(dataContext as ApplicationDbContext) },
+                {typeof(ILocationRepository), (dataContext) => new EFLocationRepository(dataContext as ApplicationDbContext) },
+                {typeof(ILocationTypeRepository), (dataContext) => new EFLocationTypeRepository(dataContext as ApplicationDbContext) },
+                {typeof(IPerformancePerformerRepository), (dataContext) => new EFPerformancePerformerRepository(dataContext as ApplicationDbContext) },
+                {typeof(IPerformanceRepository), (dataContext) => new EFPerformanceRepository(dataContext as ApplicationDbContext) },
+                {typeof(IPerformerRepository), (dataContext) => new EFPerformerRepository(dataContext as ApplicationDbContext) },
+                {typeof(IPerformerTypeRepository), (dataContext) => new EFPerformerTypeRepository(dataContext as ApplicationDbContext) },
+                {typeof(ITicketTypeRepository), (dataContext) => new EFTicketTypeRepository(dataContext as ApplicationDbContext) },
+                {typeof(ITicketRepository), (dataContext) => new EFTicketRepository(dataContext as ApplicationDbContext) },
+                
             };
         }
 
