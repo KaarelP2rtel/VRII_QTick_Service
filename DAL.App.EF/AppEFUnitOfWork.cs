@@ -29,10 +29,21 @@ namespace DAL.App.EF
             }
         }
 
-        public IPersonRepository People => GetCustomRepository<IPersonRepository>();
+     
+        public IRepository<Event> Events => GetEntityRepository<Event>();
+        public IRepository<EventType> EventTypes => GetEntityRepository<EventType>();
+        public IRepository<Invoice> Invoices => GetEntityRepository<Invoice>();
+        public IRepository<InvoiceRow> InvoiceRows => GetEntityRepository<InvoiceRow>();
+        public IRepository<Location> Locations => GetEntityRepository<Location>();
+        public IRepository<LocationType> LocationTypes => GetEntityRepository<LocationType>();
+        public IRepository<PerformancePerformer> PerformancePerformers => GetEntityRepository<PerformancePerformer>();
+        public IRepository<Performance> Performances => GetEntityRepository<Performance>();
+        public IRepository<Performer> Performers => GetEntityRepository<Performer>();
+        public IRepository<PerformerType> PerformerTypes => GetEntityRepository<PerformerType>();
+        public IRepository<Ticket> Tickets => GetEntityRepository<Ticket>();
+        public IRepository<TicketType> TicketTypes => GetEntityRepository<TicketType>();
 
-        public IRepository<Contact> Contacts => GetEntityRepository<Contact>();
-        public IRepository<ContactType> ContactTypes => GetEntityRepository<ContactType>();
+
 
 
         public void SaveChanges()
