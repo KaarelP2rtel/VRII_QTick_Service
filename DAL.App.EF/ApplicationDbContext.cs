@@ -16,10 +16,18 @@ namespace DAL.App.EF
         {
         }
 
-
-        //public DbSet<Person> People { get; set; }
- 
-
+        public DbSet<Event> Events { get; set; }
+        public DbSet<EventType> EventTypes { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceRow> InvoiceRows { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<LocationType> LocationTypes { get; set; }
+        public DbSet<Performance> Performances { get; set; }
+        public DbSet<Performer> Performers { get; set; }
+        public DbSet<PerformancePerformer> PerformancePerformers { get; set; }
+        public DbSet<PerformerType> PerformerTypes { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketType> TicketTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
