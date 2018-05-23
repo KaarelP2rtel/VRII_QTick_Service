@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
 
 namespace WebApp
 {
@@ -36,7 +40,7 @@ namespace WebApp
             // Add application services.
 
             //services.AddTransient<IPersonService, PersonService>();
-            
+
 
             // Add uow to DI container
 
@@ -44,6 +48,50 @@ namespace WebApp
             services.AddScoped<IRepositoryProvider, EFRepositoryProvider>();
             services.AddScoped<IDataContext, ApplicationDbContext>();
             services.AddScoped<IAppUnitOfWork, AppEFUnitOfWork>();
+
+            #region Security
+            services.AddAuthentication()
+                .AddCookie(options => { options.SlidingExpiration = true; })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = Configuration["Token:Issuer"],
+                        ValidAudience = Configuration["Token:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["Token:Key"])
+                            )
+                    };
+
+                    // if you fish to modify identity (ie validate, that user is not banned)
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = async (context) =>
+                        {
+                            // hardcoded
+                            if (context.Principal.Identity.Name == "a@a.ee")
+                            {
+                                context.Response.StatusCode = 401;
+                            }
+
+                            // Is the user allowed into the system
+                            var userManager = context.HttpContext.RequestServices.GetService<UserManager<ApplicationUser>>();
+                            var user = await userManager.FindByEmailAsync(context.Principal.Identity.Name);
+                            if (user == null || user.LockoutEnd > DateTime.Now)
+                            {
+                                context.Response.StatusCode = 401;
+                            }
+
+
+
+                        }
+                    };
+                });
+
+            #endregion
 
             #region add xml support
             //Respect browser headers
@@ -58,18 +106,18 @@ namespace WebApp
             #region jsonconfiguration
             services.AddMvc().AddJsonOptions(options =>
             {
-                options.SerializerSettings.ReferenceLoopHandling 
+                options.SerializerSettings.ReferenceLoopHandling
                             = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
-                options.SerializerSettings.PreserveReferencesHandling 
+                options.SerializerSettings.PreserveReferencesHandling
                             = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-                options.SerializerSettings.Formatting 
+                options.SerializerSettings.Formatting
                             = Newtonsoft.Json.Formatting.Indented;
             });
             #endregion
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "QTick API", Version = "v1" });
             });
 
 
