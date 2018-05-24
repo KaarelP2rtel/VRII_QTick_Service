@@ -10,5 +10,7 @@ namespace BL.DTO
         public string Name { get; set; }
         public DateTime Registered { get; set; }
         public bool Active { get; set; }
+
+        
     }
 }

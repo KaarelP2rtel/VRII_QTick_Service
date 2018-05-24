@@ -11,6 +11,7 @@ namespace BL.Factories
     {
         ApplicationUserDTO Transform(ApplicationUser au);
         ApplicationUser Transform(ApplicationUserDTO dto);
+        
     }
 
     public class ApplicationUserFactory : IApplicationUserFactory
