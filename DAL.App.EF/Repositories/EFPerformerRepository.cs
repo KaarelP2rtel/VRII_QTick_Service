@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace DAL.App.EF.Repositories
 {
-    class EFPerformerRepository : EFRepository<Performer>, IPerformerRepository
+    public class EFPerformerRepository : EFRepository<Performer>, IPerformerRepository
     {
         public EFPerformerRepository(DbContext dataContext) : base(dataContext)
         {
