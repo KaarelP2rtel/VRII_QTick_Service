@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BL.Services
 {
@@ -20,9 +21,11 @@ namespace BL.Services
             _locationFactory = locationFactory;
         }
 
-        public LocationDTO AddNewLocation(LocationDTO newLocation)
+        public async Task<LocationDTO> AddNewLocation(LocationDTO newLocation)
         {
-            _uow
+            var l = _locationFactory.Transform(newLocation);
+            await _uow.Locations.AddAsync(l);
+            return _locationFactory.Transform(await _uow.Locations.FindAsync(l.LocationId));
         }
 
         public List<LocationDTO> GetAllLocations()
@@ -35,7 +38,10 @@ namespace BL.Services
 
         public List<LocationDTO> GetAllLocationsByTypeId(int typeId)
         {
-            throw new NotImplementedException();
+            return _uow.Locations
+               .All()
+               .Select(l => _locationFactory.Transform(l))
+               .ToList();
         }
 
         public LocationDTO GetLocationById(int id)
