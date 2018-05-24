@@ -17,11 +17,11 @@ namespace DAL.App.Interfaces
         IRepository<EventType> EventTypes { get; }
         IRepository<Invoice> Invoices { get; }
         IRepository<InvoiceRow> InvoiceRows { get; }
-        IRepository<Location> Locations { get; }
+        ILocationRepository Locations { get; }
         IRepository<LocationType> LocationTypes { get; }
         IRepository<PerformancePerformer> PerformancePerformers { get; }
         IRepository<Performance> Performances { get; }
-        IRepository<Performer> Performers { get; }
+        IPerformerRepository Performers { get; }
         IRepository<PerformerType> PerformerTypes { get; }
         IRepository<Ticket> Tickets { get; }
         IRepository<TicketType> TicketTypes { get; }

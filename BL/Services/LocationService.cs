@@ -21,11 +21,11 @@ namespace BL.Services
             _locationFactory = locationFactory;
         }
 
-        public async Task<LocationDTO> AddNewLocation(LocationDTO newLocation)
+        public LocationDTO AddNewLocation(LocationDTO newLocation)
         {
             var l = _locationFactory.Transform(newLocation);
-            await _uow.Locations.AddAsync(l);
-            return _locationFactory.Transform(await _uow.Locations.FindAsync(l.LocationId));
+             _uow.Locations.Add(l);
+            return _locationFactory.Transform( _uow.Locations.Find(l.LocationId));
         }
 
         public List<LocationDTO> GetAllLocations()
@@ -39,14 +39,14 @@ namespace BL.Services
         public List<LocationDTO> GetAllLocationsByTypeId(int typeId)
         {
             return _uow.Locations
-               .All()
+               .AllByTypeId(typeId)
                .Select(l => _locationFactory.Transform(l))
                .ToList();
         }
 
         public LocationDTO GetLocationById(int id)
         {
-            throw new NotImplementedException();
+            return _locationFactory.Transform(_uow.Locations.Find(id));       
         }
 
 
