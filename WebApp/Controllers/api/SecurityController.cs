@@ -17,6 +17,7 @@ using WebApp.Models.AccountViewModels;
 namespace WebApp.Controllers.Api
 {
     [Produces("application/json")]
+
     [Route("api/Security")]
     [AllowAnonymous]
     public class SecurityController : Controller

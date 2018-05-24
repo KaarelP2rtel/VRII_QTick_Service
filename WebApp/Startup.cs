@@ -49,6 +49,7 @@ namespace WebApp
             services.AddScoped<IDataContext, ApplicationDbContext>();
             services.AddScoped<IAppUnitOfWork, AppEFUnitOfWork>();
 
+
             #region Security
             services.AddAuthentication()
                 .AddCookie(options => { options.SlidingExpiration = true; })
