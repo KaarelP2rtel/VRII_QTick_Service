@@ -25,7 +25,6 @@ namespace BL.Factories
         {
             return new PerformerDTO
             {
-                PerformerId = p.PerformerId,
                 PerformerName = p.PerformerName,
                 PerformerDescription = p.PerformerDescription,
                 PerformerPage = p.PerformerPage,
@@ -37,7 +36,6 @@ namespace BL.Factories
         {
             return new Performer
             {
-                PerformerId = dto.PerformerId,
                 PerformerName = dto.PerformerName,
                 PerformerDescription = dto.PerformerDescription,
                 PerformerPage = dto.PerformerPage,
