@@ -25,7 +25,9 @@ namespace BL.Services
         {
             var l = _locationFactory.Transform(newLocation);
              _uow.Locations.Add(l);
+            _uow.SaveChanges();
             return _locationFactory.Transform( _uow.Locations.Find(l.LocationId));
+            //return newLocation;
         }
 
         public List<LocationDTO> GetAllLocations()

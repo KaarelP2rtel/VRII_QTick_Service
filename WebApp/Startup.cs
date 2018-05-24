@@ -41,7 +41,7 @@ namespace WebApp
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            services.AddTransient<ILocationTypeSerivce,LocationTypeService>();
+            services.AddTransient<ILocationTypeService,LocationTypeService>();
             services.AddTransient<ILocationTypeFactory, LocationTypeFactory>();
             
             services.AddTransient<IPerformerTypeService, PerformerTypeService>();
@@ -178,6 +178,7 @@ namespace WebApp
             });
 
 
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BL.Services
 {
-    public class LocationTypeService : ILocationTypeSerivce
+    public class LocationTypeService : ILocationTypeService
     {
         private readonly IAppUnitOfWork _uow;
         private readonly ILocationTypeFactory _locationTypeFactory;

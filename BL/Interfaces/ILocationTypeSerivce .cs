@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BL.Interfaces
 {
-    public interface ILocationTypeSerivce
+    public interface ILocationTypeService
     {
         List<LocationTypeDTO> GetAllLocationTypes();
         LocationTypeDTO GetLocationTypeById(int id);

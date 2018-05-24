@@ -31,7 +31,7 @@ namespace DAL.App.EF.Repositories
             return RepositoryDbSet
                 .Include(p => p.Event)
                 .Include(p => p.Location)
-                .Include(p => p.Performers)
+                .Include(p => p.PerformancePerformers)
                 .ToList();
         }
 
@@ -50,7 +50,7 @@ namespace DAL.App.EF.Repositories
             return RepositoryDbSet
                 .Include(p => p.Event)
                 .Include(p => p.Location)
-                .Include(p => p.Performers)
+                .Include(p => p.PerformancePerformers)
                 .SingleOrDefault(p => p.PerformanceId == id);
         }
     }

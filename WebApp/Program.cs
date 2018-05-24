@@ -29,8 +29,8 @@ namespace WebApp
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    AppDataInitializer.InitializeAppDatabase(context);
-                    AppDataInitializer.InitializeIdentity(userManager, roleManager);
+                    AppDataSeeder.InitializeAppDatabase(context);
+                    AppDataSeeder.InitializeIdentity(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

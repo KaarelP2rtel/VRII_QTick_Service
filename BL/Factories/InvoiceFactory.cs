@@ -13,7 +13,16 @@ namespace BL.Factories
     }
     public class InvoiceFactory : IInvoiceFactory
     {
+        public InvoiceDTO Transform(Invoice i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Invoice Transform(InvoiceDTO i)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-   
+
 }

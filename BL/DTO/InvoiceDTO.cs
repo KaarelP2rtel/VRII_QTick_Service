@@ -13,10 +13,6 @@ namespace BL.DTO
         public decimal InvoiceSum { get; set; }
         public decimal InvoiceTax { get; set; }
 
-
-        public int ApplicationUserId { get; set; }
-        public ApplicationUserDTO ApplicationUser { get; set; }
-
         public List<InvoiceRowDTO> InvoiceRows { get; set; }
     }
 }

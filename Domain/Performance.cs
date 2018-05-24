@@ -21,6 +21,6 @@ namespace Domain
         public int EventId { get; set; }
         public Event Event { get; set; }
 
-        public List<Performer> Performers { get; set; }
+        public List<PerformancePerformer> PerformancePerformers { get; set; }
     }
 }

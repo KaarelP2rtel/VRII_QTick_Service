@@ -56,7 +56,7 @@ namespace BL.Factories
         {
             var dto = Transform(p);
             if (dto == null) return null;
-            dto.Performers = p.Performers.Select(pe => _performerFactory.Transform(pe)).ToList();
+            dto.Performers = p.PerformancePerformers.Select(pp => _performerFactory.Transform(pp.Performer)).ToList();
             return dto;
         }
     }

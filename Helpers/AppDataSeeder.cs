@@ -8,7 +8,7 @@ using DAL.App.EF;
 
 namespace WebApp.Helpers
 {
-    public class AppDataInitializer
+    public class AppDataSeeder
     {
         public static void InitializeAppDatabase(ApplicationDbContext context)
         {

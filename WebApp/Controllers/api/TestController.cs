@@ -23,10 +23,6 @@ namespace WebApp.Controllers.api
         }
         [HttpGet]
         [Route("testAuth")]
-
-
-
-
         public async Task<string> testAuthenticated()
         {
             return (await GetCurrentUser()).UserName;
