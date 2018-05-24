@@ -43,6 +43,7 @@ namespace DAL.App.EF.Repositories
         public void Remove(ApplicationUser user)
         {
             throw new NotImplementedException();
+            
         }
 
         public void Remove(string id)
