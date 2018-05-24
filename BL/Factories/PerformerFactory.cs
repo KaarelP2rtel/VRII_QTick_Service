@@ -23,6 +23,7 @@ namespace BL.Factories
 
         public PerformerDTO Transform(Performer p)
         {
+            if (p == null) return null;
             return new PerformerDTO
             {
                 PerformerName = p.PerformerName,
@@ -34,6 +35,7 @@ namespace BL.Factories
 
         public Performer Transform(PerformerDTO dto)
         {
+            if (dto == null) return null;
             return new Performer
             {
                 PerformerName = dto.PerformerName,

@@ -25,6 +25,7 @@ namespace BL.Services
         {
             var e = _eventFactory.Transform(newEvent);
              _uow.Events.Add(e);
+            _uow.SaveChanges();
             return _eventFactory.Transform( _uow.Events.Find(e.EventId));
         }
 

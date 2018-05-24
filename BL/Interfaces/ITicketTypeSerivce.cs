@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BL.Interfaces
 {
-    public interface ITicketTypeSerivce
+    public interface ITicketTypeService
     {
         List<TicketTypeDTO> GetAllTicketTypes();
         TicketTypeDTO GetTicketTypeById(int id);

@@ -15,6 +15,7 @@ namespace BL.Factories
     {
         public LocationTypeDTO Transform(LocationType lt)
         {
+            if (lt == null) return null;
             return new LocationTypeDTO
             {
                 LocationTypeId = lt.LocationTypeId,
@@ -26,6 +27,7 @@ namespace BL.Factories
 
         public LocationType Transform(LocationTypeDTO dto)
         {
+            if (dto == null) return null;
             return new LocationType
             {
                 LocationTypeId = dto.LocationTypeId,

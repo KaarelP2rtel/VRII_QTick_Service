@@ -13,8 +13,11 @@ namespace BL.Factories
     }
     public class EventTypeFactory : IEventTypeFactory
     {
+
         public EventTypeDTO Transform(EventType et)
         {
+
+            if (et == null) return null;
             return new EventTypeDTO
             {
                 EventTypeId = et.EventTypeId,
@@ -26,6 +29,7 @@ namespace BL.Factories
 
         public EventType Transform(EventTypeDTO dto)
         {
+            if (dto == null) return null;
             return new EventType
             {
                 EventTypeId = dto.EventTypeId,

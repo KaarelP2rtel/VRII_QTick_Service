@@ -24,6 +24,7 @@ namespace BL.Factories
 
         public LocationDTO Transform(Location l)
         {
+            if (l == null) return null;
             return new LocationDTO
             {
                 LocationName = l.LocationName,
@@ -36,6 +37,7 @@ namespace BL.Factories
 
         public Location Transform(LocationDTO dto)
         {
+            if (dto == null) return null;
             return new Location
             {
                 LocationName = dto.LocationName,

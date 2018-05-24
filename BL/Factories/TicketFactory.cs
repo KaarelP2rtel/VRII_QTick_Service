@@ -26,6 +26,7 @@ namespace BL.Factories
 
         public TicketDTO Transform(Ticket t)
         {
+            if (t == null) return null;
             return new TicketDTO
             {
                 TicketNr = t.TicketNr,
@@ -36,6 +37,7 @@ namespace BL.Factories
 
         public Ticket Transform(TicketDTO dto)
         {
+            if (dto == null) return null;
             return new Ticket
             {
                 TicketNr = dto.TicketNr,
@@ -46,6 +48,7 @@ namespace BL.Factories
 
         public TicketDTO TransformWithPerformance(Ticket t)
         {
+            if (t == null) return null;
             return new TicketDTO
             {
                 TicketNr = t.TicketNr,

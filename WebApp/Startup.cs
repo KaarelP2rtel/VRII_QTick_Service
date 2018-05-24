@@ -43,18 +43,21 @@ namespace WebApp
                 .AddDefaultTokenProviders();
 
             // Add application services.
+            #region Types
             services.AddTransient<ILocationTypeService,LocationTypeService>();
             services.AddTransient<ILocationTypeFactory, LocationTypeFactory>();
             
             services.AddTransient<IPerformerTypeService, PerformerTypeService>();
             services.AddTransient<IPerformerTypeFactory, PerformerTypeFactory>();
 
-            services.AddTransient<IEventTypeSerivce, EventTypeService>();
+            services.AddTransient<IEventTypeService, EventTypeService>();
             services.AddTransient<IEventTypeFactory, EventTypeFactory>();
 
-            services.AddTransient<ITicketTypeSerivce, TicketTypeService>();
+            services.AddTransient<ITicketTypeService, TicketTypeService>();
             services.AddTransient<ITicketTypeFactory, TicketTypeFactory>();
+            #endregion
 
+            #region Performances
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<ILocationFactory, LocationFactory>();
 
@@ -64,8 +67,9 @@ namespace WebApp
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IEventFactory, EventFactory>();
 
-            services.AddTransient<ILocationService, LocationService>();
-            services.AddTransient<ILocationFactory, LocationFactory>();
+            services.AddTransient<IPerformanceService, PerformanceService>();
+            services.AddTransient<IPerformanceFactory, PerformanceFactory>();
+            #endregion
 
 
             // Add uow to DI container

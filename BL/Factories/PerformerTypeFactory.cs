@@ -15,6 +15,7 @@ namespace BL.Factories
     {
         public PerformerTypeDTO Transform(PerformerType pt)
         {
+            if (pt == null) return null;
             return new PerformerTypeDTO
             {
                 PerformerTypeId = pt.PerformerTypeId,
@@ -25,6 +26,7 @@ namespace BL.Factories
 
         public PerformerType Transform(PerformerTypeDTO dto)
         {
+            if (dto == null) return null;
             return new PerformerType
             {
                 PerformerTypeId = dto.PerformerTypeId,

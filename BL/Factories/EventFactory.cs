@@ -24,6 +24,7 @@ namespace BL.Factories
 
         public EventDTO Transform(Event l)
         {
+            if (l == null) return null;
             return new EventDTO
             {
                 EventName = l.EventName,
@@ -37,6 +38,7 @@ namespace BL.Factories
 
         public Event Transform(EventDTO dto)
         {
+            if (dto == null) return null;
             return new Event
             {
                 EventName = dto.EventName,
@@ -44,7 +46,7 @@ namespace BL.Factories
                 EventDescription = dto.EventDescription,
                 EventPage = dto.EventPage,
                 EventDuration = dto.EventDuration,
-                EventType = _eventTypeFactory.Transform(dto.EventType)
+                EventTypeId = dto.EventId
 
             };
         }

@@ -15,6 +15,7 @@ namespace BL.Factories
     {
         public TicketTypeDTO Transform(TicketType tt)
         {
+            if (tt == null) return null;
             return new TicketTypeDTO
             {
                 TicketTypeId = tt.TicketTypeId,
@@ -26,6 +27,7 @@ namespace BL.Factories
 
         public TicketType Transform(TicketTypeDTO dto)
         {
+            if (dto == null) return null;
             return new TicketType
             {
                 TicketTypeId = dto.TicketTypeId,

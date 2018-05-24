@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BL.Interfaces
 {
-    public interface IEventTypeSerivce
+    public interface IEventTypeService
     {
         List<EventTypeDTO> GetAllEventTypes();
         EventTypeDTO GetEventTypeById(int id);

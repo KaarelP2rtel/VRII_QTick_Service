@@ -45,7 +45,7 @@ namespace DAL.App.EF
         public IRepository<Ticket> Tickets => GetEntityRepository<Ticket>();
         public IRepository<TicketType> TicketTypes => GetEntityRepository<TicketType>();
 
-        public IUserRepository Users => _UserRepository;
+        public IUserRepository Users => _userRepository;
 
         
 

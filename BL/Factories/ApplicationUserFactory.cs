@@ -18,6 +18,7 @@ namespace BL.Factories
     {
         public ApplicationUserDTO Transform(ApplicationUser au)
         {
+            if (au == null) return null;
             return new ApplicationUserDTO
             {
                 Name = au.Name,
@@ -28,6 +29,7 @@ namespace BL.Factories
 
         public ApplicationUser Transform(ApplicationUserDTO dto)
         {
+            if (dto == null) return null;
             return new ApplicationUser
             {
                 Name = dto.Name,

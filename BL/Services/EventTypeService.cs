@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BL.Services
 {
-    public class EventTypeService : IEventTypeSerivce
+    public class EventTypeService : IEventTypeService
     {
         private readonly IAppUnitOfWork _uow;
         private readonly IEventTypeFactory _eventTypeFactory;

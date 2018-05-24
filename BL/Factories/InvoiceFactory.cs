@@ -23,8 +23,10 @@ namespace BL.Factories
 
         public InvoiceDTO Transform(Invoice i)
         {
+            if (i == null) return null;
             return new InvoiceDTO
             {
+
                 InvoiceNr = i.InvoiceNr,
                 InvoiceDate = i.InvoiceDate,
                 InvoiceSum = i.InvoiceSum,
@@ -35,6 +37,7 @@ namespace BL.Factories
  
         public Invoice Transform(InvoiceDTO dto)
         {
+            if (dto == null) return null;
             return new Invoice
             {
                 InvoiceNr = dto.InvoiceNr,

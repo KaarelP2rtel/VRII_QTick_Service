@@ -15,6 +15,7 @@ namespace BL.Factories
     {
         public InvoiceRowDTO Transform(InvoiceRow ir)
         {
+            if (ir == null) return null;
             return new InvoiceRowDTO
             {
                 InvoiceRowId = ir.InvoiceRowId,
@@ -27,6 +28,7 @@ namespace BL.Factories
 
         public InvoiceRow Transform(InvoiceRowDTO dto)
         {
+            if (dto == null) return null;
             return new InvoiceRow
             {
                 InvoiceRowId = dto.InvoiceRowId,

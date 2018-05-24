@@ -30,6 +30,7 @@ namespace BL.Factories
 
         public PerformanceDTO Transform(Performance p)
         {
+            if (p == null) return null;
             return new PerformanceDTO
             {
                 TicketInfo = p.TicketInfo,
@@ -42,6 +43,7 @@ namespace BL.Factories
 
         public Performance Transform(PerformanceDTO dto)
         {
+            if (dto == null) return null;
             return new Performance
             {
                 TicketInfo = dto.TicketInfo,

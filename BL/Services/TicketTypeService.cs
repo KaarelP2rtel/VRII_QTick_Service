@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BL.Services
 {
-    public class TicketTypeService : ITicketTypeSerivce
+    public class TicketTypeService : ITicketTypeService
     {
         private readonly IAppUnitOfWork _uow;
         private readonly ITicketTypeFactory _ticketTypeFactory;
@@ -25,7 +25,7 @@ namespace BL.Services
             var tt = _ticketTypeFactory.Transform(newTicketType);
             _uow.TicketTypes.Add(tt);
             _uow.SaveChanges();
-            return _ticketTypeFactory.Transform(tt);
+            return _ticketTypeFactory.Transform(_uow.TicketTypes.Find(tt.TicketTypeId));
         }
 
         public List<TicketTypeDTO> GetAllTicketTypes()
