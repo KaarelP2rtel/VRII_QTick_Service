@@ -12,5 +12,6 @@ namespace DAL.App.Interfaces.Helpers
         IRepository<TEntity> GetEntityRepository<TEntity>() where TEntity : class;
 
         TRepository GetCustomRepository<TRepository>() where TRepository : class;
+       
     }
 }

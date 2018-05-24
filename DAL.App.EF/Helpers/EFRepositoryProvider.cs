@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DAL.App.Interfaces.Helpers;
+using DAL.App.Interfaces.Repositories;
 using DAL.EF.Repositories;
 using DAL.Interfaces;
 using DAL.Interfaces.Repositories;
@@ -60,6 +61,6 @@ namespace DAL.App.EF.Helpers
                 _repositoryFactory.GetCustomRepositoryFactory<TRepository>());
         }
 
-        
+       
     }
 }

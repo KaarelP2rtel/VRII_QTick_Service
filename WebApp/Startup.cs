@@ -18,6 +18,8 @@ using System;
 using BL.Factories;
 using BL.Services;
 using BL.Interfaces;
+using DAL.App.EF.Repositories;
+using DAL.App.Interfaces.Repositories;
 
 namespace WebApp
 {
@@ -73,7 +75,11 @@ namespace WebApp
             services.AddScoped<IDataContext, ApplicationDbContext>();
             services.AddScoped<IAppUnitOfWork, AppEFUnitOfWork>();
 
-            
+            //Special case for user repo
+            services.AddScoped<IUserRepository, EFUserRepository>();
+
+
+
 
             #region Security
             services.AddAuthentication()

@@ -18,10 +18,12 @@ namespace DAL.App.EF
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly IRepositoryProvider _repositoryProvider;
+        private readonly IUserRepository _userRepository;
 
-        public AppEFUnitOfWork(IDataContext dataContext, IRepositoryProvider repositoryProvider)
+        public AppEFUnitOfWork(IDataContext dataContext, IRepositoryProvider repositoryProvider, IUserRepository userRepository)
         {
             _repositoryProvider = repositoryProvider;
+            _userRepository = userRepository;
             _applicationDbContext = dataContext as ApplicationDbContext;
             if (_applicationDbContext == null)
             {
@@ -37,14 +39,15 @@ namespace DAL.App.EF
         public ILocationRepository Locations => GetCustomRepository<ILocationRepository>();
         public IRepository<LocationType> LocationTypes => GetEntityRepository<LocationType>();
         public IRepository<PerformancePerformer> PerformancePerformers => GetEntityRepository<PerformancePerformer>();
-        public IRepository<Performance> Performances => GetEntityRepository<Performance>();
+        public IPerformanceRepository Performances => GetCustomRepository<IPerformanceRepository>();
         public IPerformerRepository Performers => GetCustomRepository<IPerformerRepository>();
         public IRepository<PerformerType> PerformerTypes => GetEntityRepository<PerformerType>();
         public IRepository<Ticket> Tickets => GetEntityRepository<Ticket>();
         public IRepository<TicketType> TicketTypes => GetEntityRepository<TicketType>();
 
+        public IUserRepository Users => _UserRepository;
 
-
+        
 
         public void SaveChanges()
         {

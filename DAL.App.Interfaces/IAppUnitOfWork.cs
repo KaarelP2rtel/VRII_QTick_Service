@@ -20,10 +20,12 @@ namespace DAL.App.Interfaces
         ILocationRepository Locations { get; }
         IRepository<LocationType> LocationTypes { get; }
         IRepository<PerformancePerformer> PerformancePerformers { get; }
-        IRepository<Performance> Performances { get; }
+        IPerformanceRepository Performances { get; }
         IPerformerRepository Performers { get; }
         IRepository<PerformerType> PerformerTypes { get; }
         IRepository<Ticket> Tickets { get; }
         IRepository<TicketType> TicketTypes { get; }
+
+        IUserRepository Users { get; }
     }
 }

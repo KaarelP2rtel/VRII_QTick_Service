@@ -29,31 +29,30 @@ namespace DAL.App.EF.Repositories
                 .SingleOrDefault(au => au.Id == id);
         }
 
-        public async void Add(ApplicationUser user)
+        public  void Add(ApplicationUser user)
         {
-            await _userManager.CreateAsync(user);
+             _userManager.CreateAsync(user);
         }
 
         public ApplicationUser Update(ApplicationUser user)
         {
-           // return await _userManager.UpdateAsync(user);
-             throw new NotImplementedException();
+          
+            _userManager.UpdateAsync(user);
+            return Find(user.Id);
         }
 
         public void Remove(ApplicationUser user)
         {
-            throw new NotImplementedException();
-            
+            _userManager.DeleteAsync(user);
+
         }
 
         public void Remove(string id)
         {
-            throw new NotImplementedException();
+            var user = Find(id);
+            Remove(user);
         }
 
-        public bool Exists(ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
