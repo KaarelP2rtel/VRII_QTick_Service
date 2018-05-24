@@ -14,27 +14,40 @@ namespace BL.Services
         private readonly IAppUnitOfWork _uow;
         private readonly IPerformerFactory _performerFactory;
 
-        public List<PerformerDTO> GetAllPerformers()
+        public PerformerService(IAppUnitOfWork uow, IPerformerFactory performerFactory)
         {
-            return _uow.Performers.All()
-                .Select(p => _performerFactory
-                .Transform(p))
-                .ToList();
-        }
-
-        public PerformerDTO GetPerformerByTypeId(int typeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PerformerDTO GetPerformerById(int personId)
-        {
-            throw new NotImplementedException();
+            _uow = uow;
+            _performerFactory = performerFactory;
         }
 
         public PerformerDTO AddNewPerformer(PerformerDTO newPerformer)
         {
-            throw new NotImplementedException();
+            var p = _performerFactory.Transform(newPerformer);
+            _uow.Performers.Add(p);
+            return _performerFactory.Transform(_uow.Performers.Find(p.PerformerId));
         }
+
+        public List<PerformerDTO> GetAllPerformers()
+        {
+            return _uow.Performers
+                .All()
+                .Select(p => _performerFactory.Transform(p))
+                .ToList();
+        }
+ 
+        public List<PerformerDTO> GetAllPerformersByTypeId(int typeId)
+        {
+            return _uow.Performers
+                .AllByTypeId(typeId)
+                .Select(p => _performerFactory.Transform(p))
+                .ToList();
+        }
+
+        public PerformerDTO GetPerformerById(int id)
+        {
+            return _performerFactory.Transform(_uow.Performers.Find(id));
+        }
+
+
     }
 }
