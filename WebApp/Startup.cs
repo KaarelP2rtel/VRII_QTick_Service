@@ -43,10 +43,15 @@ namespace WebApp
             // Add application services.
             services.AddTransient<ILocationTypeSerivce,LocationTypeService>();
             services.AddTransient<ILocationTypeFactory, LocationTypeFactory>();
-
             
             services.AddTransient<IPerformerTypeService, PerformerTypeService>();
             services.AddTransient<IPerformerTypeFactory, PerformerTypeFactory>();
+
+            services.AddTransient<IEventTypeSerivce, EventTypeService>();
+            services.AddTransient<IEventTypeFactory, EventTypeFactory>();
+
+            services.AddTransient<ITicketTypeSerivce, TicketTypeService>();
+            services.AddTransient<ITicketTypeFactory, TicketTypeFactory>();
 
 
             // Add uow to DI container
