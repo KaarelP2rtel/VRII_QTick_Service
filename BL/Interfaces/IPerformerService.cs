@@ -9,7 +9,7 @@ namespace BL.Interfaces
     {
         List<PerformerDTO> GetAllPerformers();
 
-        PerformerDTO GetAllPerformerByTypeId(int typeId);
+        List<PerformerDTO> GetAllPerformersByTypeId(int typeId);
 
         PerformerDTO GetPerformerById(int personId);
 
