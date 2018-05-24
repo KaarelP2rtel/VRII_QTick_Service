@@ -13,7 +13,7 @@ namespace DAL.App.Interfaces
         //IPersonRepository People { get; }
 
         //IRepository<Contact> Contacts { get; }
-        IRepository<Event> Events { get; }
+        IEventRepository Events { get; }
         IRepository<EventType> EventTypes { get; }
         IRepository<Invoice> Invoices { get; }
         IRepository<InvoiceRow> InvoiceRows { get; }
