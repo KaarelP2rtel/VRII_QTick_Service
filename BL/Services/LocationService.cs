@@ -22,7 +22,7 @@ namespace BL.Services
 
         public LocationDTO AddNewLocation(LocationDTO newLocation)
         {
-            _uow
+        
         }
 
         public List<LocationDTO> GetAllLocations()
