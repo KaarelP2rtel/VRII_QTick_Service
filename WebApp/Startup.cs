@@ -59,6 +59,12 @@ namespace WebApp
             services.AddTransient<IPerformerService, PerformerService>();
             services.AddTransient<IPerformerFactory, PerformerFactory>();
 
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IEventFactory, EventFactory>();
+
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<ILocationFactory, LocationFactory>();
+
 
             // Add uow to DI container
 

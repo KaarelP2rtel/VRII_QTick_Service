@@ -21,5 +21,7 @@ namespace Domain
         public int PerformerTypeId { get; set; }
         public PerformerType PerformerType { get; set; }
 
+        public List<Performance> Performances { get; set; }
+
     }
 }
