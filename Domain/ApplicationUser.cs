@@ -12,7 +12,7 @@ namespace Domain
     {
         //Entity properties
         [MaxLength(100)]
-        public string name { get; set; }
+        public string Name { get; set; }
         public DateTime Registered { get; set; }
         public bool Active { get; set; }
 
