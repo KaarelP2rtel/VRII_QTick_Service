@@ -22,15 +22,14 @@ namespace BL.Services
 
         public LocationDTO AddNewLocation(LocationDTO newLocation)
         {
-            
+            _uow
         }
 
         public List<LocationDTO> GetAllLocations()
         {
             return _uow.Locations
                 .All()
-                .Select(l => _locationFactory
-                .Transform(l))
+                .Select(l => _locationFactory.Transform(l))
                 .ToList();
         }
 

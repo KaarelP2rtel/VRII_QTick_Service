@@ -10,6 +10,6 @@ namespace DAL.App.Interfaces.Repositories
     public interface ILocationRepository : IRepository<Location>
     {
         IEnumerable<Location> AllByTypeId(int id);
-        IEnumerable<Task<Location>> AllByTypeIdAsync(int id);
+        Task<IEnumerable<Location>> AllByTypeIdAsync(int id);
     }
 }
