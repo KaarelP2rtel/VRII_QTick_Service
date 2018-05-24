@@ -5,10 +5,10 @@ using System.Text;
 
 namespace BL.Interfaces
 {
-    public interface ILocationTypeSerivce
+    public interface IEventTypeSerivce
     {
-        List<LocationTypeDTO> GetAllLocationTypes();
-        LocationTypeDTO GetLocationTypeById(int id);
-        LocationTypeDTO AddNewLocationType(LocationTypeDTO newLocationType);
+        List<EventTypeDTO> GetAllEventTypes();
+        EventTypeDTO GetEventTypeById(int id);
+        EventTypeDTO AddNewEventType(EventTypeDTO newEventType);
     }
 }
