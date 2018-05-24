@@ -15,9 +15,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
-using BL.Interfaces;
-using BL.Services;
-using BL.Factories;
 
 namespace WebApp
 {
@@ -45,6 +42,8 @@ namespace WebApp
             services.AddTransient<ILocationTypeFactory, LocationTypeFactory>();
 
             
+            services.AddTransient<IPerformerTypeService, PerformerTypeService>();
+            services.AddTransient<IPerformerTypeFactory, PerformerTypeFactory>();
 
 
             // Add uow to DI container
