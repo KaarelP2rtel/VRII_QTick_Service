@@ -15,6 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
+using BL.Interfaces;
+using BL.Services;
+using BL.Factories;
 
 namespace WebApp
 {
@@ -38,8 +41,10 @@ namespace WebApp
                 .AddDefaultTokenProviders();
 
             // Add application services.
+            services.AddTransient<ILocationTypeSerivce,LocationTypeService>();
+            services.AddTransient<ILocationTypeFactory, LocationTypeFactory>();
 
-            //services.AddTransient<IPersonService, PersonService>();
+            
 
 
             // Add uow to DI container
@@ -49,6 +54,7 @@ namespace WebApp
             services.AddScoped<IDataContext, ApplicationDbContext>();
             services.AddScoped<IAppUnitOfWork, AppEFUnitOfWork>();
 
+            
 
             #region Security
             services.AddAuthentication()
