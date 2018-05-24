@@ -34,11 +34,11 @@ namespace DAL.App.EF
         public IRepository<EventType> EventTypes => GetEntityRepository<EventType>();
         public IRepository<Invoice> Invoices => GetEntityRepository<Invoice>();
         public IRepository<InvoiceRow> InvoiceRows => GetEntityRepository<InvoiceRow>();
-        public IRepository<Location> Locations => GetEntityRepository<Location>();
+        public ILocationRepository Locations => GetCustomRepository<ILocationRepository>();
         public IRepository<LocationType> LocationTypes => GetEntityRepository<LocationType>();
         public IRepository<PerformancePerformer> PerformancePerformers => GetEntityRepository<PerformancePerformer>();
         public IRepository<Performance> Performances => GetEntityRepository<Performance>();
-        public IRepository<Performer> Performers => GetEntityRepository<Performer>();
+        public IPerformerRepository Performers => GetCustomRepository<IPerformerRepository>();
         public IRepository<PerformerType> PerformerTypes => GetEntityRepository<PerformerType>();
         public IRepository<Ticket> Tickets => GetEntityRepository<Ticket>();
         public IRepository<TicketType> TicketTypes => GetEntityRepository<TicketType>();
