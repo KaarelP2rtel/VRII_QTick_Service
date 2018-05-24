@@ -23,12 +23,12 @@ namespace DAL.EF.Repositories
             }
         }
 
-        public IEnumerable<TEntity> All()
+        public virtual IEnumerable<TEntity> All()
         {
             return RepositoryDbSet.ToList();
         }
 
-        public async Task<IEnumerable<TEntity>> AllAsync()
+        public virtual async Task<IEnumerable<TEntity>> AllAsync()
         {
             return await RepositoryDbSet.ToListAsync();
         }
@@ -38,37 +38,37 @@ namespace DAL.EF.Repositories
             return RepositoryDbSet.Find(id);
         }
 
-        public async Task<TEntity> FindAsync(params object[] id)
+        public virtual async Task<TEntity> FindAsync(params object[] id)
         {
             return await RepositoryDbSet.FindAsync(id);
         }
 
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             RepositoryDbSet.Add(entity);
         }
 
-        public async Task AddAsync(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
             await RepositoryDbSet.AddAsync(entity);
         }
 
-        public TEntity Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             return RepositoryDbSet.Update(entity).Entity;
         }
 
-        public void Remove(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
             RepositoryDbSet.Remove(entity);
         }
 
-        public void Remove(params object[] id)
+        public virtual void Remove(params object[] id)
         {
             RepositoryDbSet.Remove(Find(id));
         }
 
-        public bool Exists(TEntity entity)
+        public virtual bool Exists(TEntity entity)
         {
             return RepositoryDbSet.Any(e => e == entity);
         }

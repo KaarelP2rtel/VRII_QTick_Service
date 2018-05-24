@@ -9,5 +9,7 @@ namespace BL.DTO
         public int LocationTypeId { get; set; }
         public string LocationTypeName{ get; set; }
         public string LocationTypeDescription { get; set; }
+
+        
     }
 }
