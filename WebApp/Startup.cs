@@ -15,6 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
+using BL.Factories;
+using BL.Services;
+using BL.Interfaces;
 
 namespace WebApp
 {
