@@ -32,6 +32,7 @@ namespace DAL.App.EF.Repositories
                 .Include(p => p.Event)
                 .Include(p => p.Location)
                 .Include(p => p.PerformancePerformers)
+                    .ThenInclude(pp => pp.Performer)
                 .ToList();
         }
 
@@ -51,6 +52,7 @@ namespace DAL.App.EF.Repositories
                 .Include(p => p.Event)
                 .Include(p => p.Location)
                 .Include(p => p.PerformancePerformers)
+                    .ThenInclude(pp => pp.Performer)
                 .SingleOrDefault(p => p.PerformanceId == id);
         }
     }

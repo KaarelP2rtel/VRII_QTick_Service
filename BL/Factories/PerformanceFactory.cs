@@ -12,6 +12,9 @@ namespace BL.Factories
         PerformanceDTO Transform(Performance p);
         Performance Transform(PerformanceDTO dto);
         PerformanceDTO TransformWithPerformers(Performance p);
+
+
+
    
 
     }
@@ -33,6 +36,7 @@ namespace BL.Factories
             if (p == null) return null;
             return new PerformanceDTO
             {
+                PerformanceId=p.PerformanceId,
                 TicketInfo = p.TicketInfo,
                 PerformanceDescription = p.PerformanceDescription,
                 PerformanceTime = p.PerformanceTime,

@@ -120,8 +120,21 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [Route("PerformancesWithPerformers")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<PerformanceDTO> GetPerformancesWithPerformers() => _performanceService.GetPerformancesWithPerformers();
+
+        [HttpGet]
+        [Route("PerformancesWithPerformers/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        public PerformanceDTO GetPerformanceWithPerformers([FromRoute] int id) => _performanceService.GetPerformanceByIdWithPerformer(id);
+
+        [HttpPost]
+        [Route("AddPerformerToPerformance")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public PerformanceDTO AddPerformer([FromBody] PerformancePerformerDTO newPerformer)
+        {
+            return _performanceService.AddPerformerToPerformance(newPerformer);
+        }
         #endregion
 
 

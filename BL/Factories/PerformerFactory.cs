@@ -26,6 +26,7 @@ namespace BL.Factories
             if (p == null) return null;
             return new PerformerDTO
             {
+                PerformerId=p.PerformerId,
                 PerformerName = p.PerformerName,
                 PerformerDescription = p.PerformerDescription,
                 PerformerPage = p.PerformerPage,
@@ -41,7 +42,7 @@ namespace BL.Factories
                 PerformerName = dto.PerformerName,
                 PerformerDescription = dto.PerformerDescription,
                 PerformerPage = dto.PerformerPage,
-                PerformerTypeId = dto.PerformerId
+                PerformerTypeId = dto.PerformerTypeId
             };
         }
 

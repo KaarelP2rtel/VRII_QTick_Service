@@ -10,6 +10,9 @@ namespace BL.Interfaces
         List<PerformanceDTO> GetPerformances();
         List<PerformanceDTO> GetPerformancesWithPerformers();
         PerformanceDTO GetPerformanceById(int id);
+        PerformanceDTO GetPerformanceByIdWithPerformer(int id);
         PerformanceDTO AddNewPerformance(PerformanceDTO newPerformance);
+        PerformanceDTO AddPerformerToPerformance(PerformancePerformerDTO dto);
+
     }
 }

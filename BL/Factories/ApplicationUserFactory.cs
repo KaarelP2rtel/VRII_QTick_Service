@@ -10,7 +10,7 @@ namespace BL.Factories
     public interface IApplicationUserFactory
     {
         ApplicationUserDTO Transform(ApplicationUser au);
-        ApplicationUser Transform(ApplicationUserDTO dto);
+        
         
     }
 
@@ -27,15 +27,5 @@ namespace BL.Factories
             };
         }
 
-        public ApplicationUser Transform(ApplicationUserDTO dto)
-        {
-            if (dto == null) return null;
-            return new ApplicationUser
-            {
-                Name = dto.Name,
-                Registered = dto.Registered,
-                Active = dto.Active
-            };
-        }
     }
 }

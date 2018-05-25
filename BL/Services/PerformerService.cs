@@ -24,6 +24,7 @@ namespace BL.Services
         {
             var p = _performerFactory.Transform(newPerformer);
             _uow.Performers.Add(p);
+            _uow.SaveChanges();
             return _performerFactory.Transform(_uow.Performers.Find(p.PerformerId));
         }
 

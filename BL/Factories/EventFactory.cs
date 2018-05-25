@@ -27,12 +27,13 @@ namespace BL.Factories
             if (l == null) return null;
             return new EventDTO
             {
+                EventId=l.EventId,
                 EventName = l.EventName,
                 ImageLink = l.ImageLink,
                 EventDescription= l.EventDescription,
                 EventPage=l.EventPage,
                 EventDuration=l.EventDuration,
-                EventType = _eventTypeFactory.Transform(l.EventType)
+                EventType = _eventTypeFactory.Transform(l.EventType)??null
             };
         }
 
@@ -46,7 +47,7 @@ namespace BL.Factories
                 EventDescription = dto.EventDescription,
                 EventPage = dto.EventPage,
                 EventDuration = dto.EventDuration,
-                EventTypeId = dto.EventId
+                EventTypeId = dto.EventTypeId
 
             };
         }

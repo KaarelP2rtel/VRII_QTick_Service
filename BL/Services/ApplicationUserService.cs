@@ -25,7 +25,7 @@ namespace BL.Services
             throw new NotImplementedException();
         }
 
-        public ApplicationUserDTO GetApplicationUserById(int id)
+        public ApplicationUserDTO GetApplicationUserById(string id)
         {
             throw new NotImplementedException();
         }

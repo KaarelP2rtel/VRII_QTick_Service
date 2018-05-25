@@ -2,6 +2,7 @@
 using BL.Factories;
 using BL.Interfaces;
 using DAL.App.Interfaces;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +25,36 @@ namespace BL.Services
         {
             var p = _performanceFactory.Transform(newPerformance);
             _uow.Performances.Add(p);
+            _uow.SaveChanges();
             var added = _uow.Performances.Find(p.PerformanceId);
             if (added == null) return null;
             return _performanceFactory.Transform(added);
 
         }
 
+
+        public PerformanceDTO AddPerformerToPerformance(PerformancePerformerDTO dto)
+        {
+#warning should create factory
+
+            _uow.PerformancePerformers
+                .Add(new PerformancePerformer
+                {
+                    PerformerId=dto.PerformerId,
+                    PerformanceId=dto.PerformanceId
+                });
+            _uow.SaveChanges();
+            return _performanceFactory.TransformWithPerformers(_uow.Performances.FindWithPerformers(dto.PerformanceId));
+        }
+
         public PerformanceDTO GetPerformanceById(int id)
         {
             return _performanceFactory.Transform(_uow.Performances.Find(id));
+        }
+
+        public PerformanceDTO GetPerformanceByIdWithPerformer(int id)
+        {
+            return _performanceFactory.TransformWithPerformers(_uow.Performances.Find(id));
         }
 
         public List<PerformanceDTO> GetPerformances()
@@ -42,7 +64,7 @@ namespace BL.Services
 
         public List<PerformanceDTO> GetPerformancesWithPerformers()
         {
-            return _uow.Performances.All().Select(p => _performanceFactory.TransformWithPerformers(p)).ToList();
+            return _uow.Performances.AllWithPerformers().Select(p => _performanceFactory.TransformWithPerformers(p)).ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BL.Interfaces
     public interface IApplicationUserService
     {
         List<ApplicationUserDTO> GetAllApplicationUsers();
-        ApplicationUserDTO GetApplicationUserById(int id);
+        ApplicationUserDTO GetApplicationUserById(string id);
         ApplicationUserDTO AddNewApplicationUser(ApplicationUserDTO newApplicationUser);
     }
 }
