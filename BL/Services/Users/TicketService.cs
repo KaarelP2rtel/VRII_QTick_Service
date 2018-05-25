@@ -20,9 +20,13 @@ namespace BL.Services
             _ticketFactory = ticketFactory;
         }
 
-        public TicketDTO AddNewTicket(TicketDTO ticket)
+        public TicketDTO AddNewTicket(TicketDTO dto)
         {
-            throw new NotImplementedException();
+            if (dto == null) return null;
+            var ticket = _ticketFactory.Transform(dto);
+            _uow.Tickets.Add(ticket);
+            _uow.SaveChanges();
+            return _ticketFactory.Transform(_uow.Tickets.Find(ticket.TicketId));
         }
 
         public List<TicketDTO> GetAllTickets()
@@ -38,6 +42,11 @@ namespace BL.Services
         public TicketDTO GetTicketByIdWithPerformance(int id)
         {
             return _ticketFactory.TransformWithPerformance(_uow.Tickets.Find(id));
+        }
+
+        public TicketDTO GetTicketByIdWithUser(int id)
+        {
+            return _ticketFactory.TransformWithUser(_uow.Tickets.FindWithUser(id));
         }
     }
 }

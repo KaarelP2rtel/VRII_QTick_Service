@@ -21,7 +21,7 @@ namespace DAL.App.EF.Repositories
                 
                 .Include(t => t.Performance)
                 .Include(t => t.TicketType)
-                .Include(t => t.ApplicationUser)
+                
                 .ToList();
         }
 
@@ -31,8 +31,15 @@ namespace DAL.App.EF.Repositories
                 
                 .Include(t => t.Performance)
                 .Include(t => t.TicketType)
-                 .Include(t => t.ApplicationUser)
+                
                 .SingleOrDefault(t => t.TicketId==(int)id[0]);
+        }
+
+        public Ticket FindWithUser(int id)
+        {
+            return RepositoryDbSet
+                .Include(t => t.ApplicationUser)
+                .SingleOrDefault(t => t.TicketId==id);
         }
     }
 }

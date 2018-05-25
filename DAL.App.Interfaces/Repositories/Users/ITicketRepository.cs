@@ -8,5 +8,6 @@ namespace DAL.App.Interfaces.Repositories
 {
     public interface ITicketRepository : IRepository<Ticket>
     {
+        Ticket FindWithUser(int id);
     }
 }

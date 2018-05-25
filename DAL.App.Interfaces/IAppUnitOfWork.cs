@@ -23,7 +23,7 @@ namespace DAL.App.Interfaces
         IPerformanceRepository Performances { get; }
         IPerformerRepository Performers { get; }
         IRepository<PerformerType> PerformerTypes { get; }
-        IRepository<Ticket> Tickets { get; }
+        ITicketRepository Tickets { get; }
         IRepository<TicketType> TicketTypes { get; }
 
         IUserRepository Users { get; }

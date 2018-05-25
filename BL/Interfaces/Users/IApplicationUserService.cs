@@ -10,5 +10,6 @@ namespace BL.Interfaces
         List<ApplicationUserDTO> GetAllApplicationUsers();
         ApplicationUserDTO GetApplicationUserById(string id);
         ApplicationUserDTO AddNewApplicationUser(ApplicationUserDTO newApplicationUser);
+
     }
 }

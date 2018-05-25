@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using BL.DTO;
 using BL.Factories;
 using BL.Interfaces;
+using DAL.App.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,18 +13,20 @@ namespace BL.Services
 {
     public class ApplicationUserService : IApplicationUserService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAppUnitOfWork _uow;
         private readonly IApplicationUserFactory _applicationUserFactory;
 
-        public ApplicationUserService(UserManager<ApplicationUser> userManager, IApplicationUserFactory applicationUserFactory)
+        public ApplicationUserService(IAppUnitOfWork uow, IApplicationUserFactory applicationUserFactory)
         {
-            _userManager = userManager;
+            _uow = uow;
             _applicationUserFactory = applicationUserFactory;
         }
 
         public List<ApplicationUserDTO> GetAllApplicationUsers()
         {
-            throw new NotImplementedException();
+            return _uow.Users.All()
+                .Select(u => _applicationUserFactory.Transform(u))
+                .ToList();
         }
 
         public ApplicationUserDTO GetApplicationUserById(string id)

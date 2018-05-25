@@ -21,6 +21,7 @@ namespace BL.Factories
             if (au == null) return null;
             return new ApplicationUserDTO
             {
+                UserId = au.Id,
                 Name = au.Name,
                 Registered = au.Registered,
                 Active = au.Active

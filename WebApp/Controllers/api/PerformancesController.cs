@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BL.DTO;
 using BL.Interfaces;
-using Helpers;
+using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
@@ -21,6 +18,14 @@ namespace WebApp.Controllers
         private readonly IEventService _eventService;
         private readonly IPerformerService _performerService;
         private readonly IPerformanceService _performanceService;
+
+        private object Errors
+        {
+            get => ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+        }
 
         public PerformancesController(
             ILocationService locationService,
@@ -55,7 +60,7 @@ namespace WebApp.Controllers
             if (TryValidateModel(newLocation)){
                 return Ok(_locationService.AddNewLocation(newLocation));
             }
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         [HttpPost]
@@ -84,7 +89,7 @@ namespace WebApp.Controllers
             {
                 return Ok(_eventService.AddNewEvent(newEvent));
             }
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         [HttpGet]
@@ -113,7 +118,7 @@ namespace WebApp.Controllers
             {
                 return Ok(_performerService.AddNewPerformer(newPerformer));
             }
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         [HttpGet]
@@ -142,7 +147,7 @@ namespace WebApp.Controllers
             {
                 return Ok(_performanceService.AddNewPerformance(newPerformance));
             }
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         [HttpGet]
@@ -164,7 +169,7 @@ namespace WebApp.Controllers
             {
                 return Ok(_performanceService.AddPerformerToPerformance(newPerformer));
             }
-            return BadRequest();
+            return BadRequest(Errors);
             
         }
         #endregion

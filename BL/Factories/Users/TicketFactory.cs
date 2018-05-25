@@ -11,17 +11,22 @@ namespace BL.Factories
         TicketDTO Transform(Ticket t);
         Ticket Transform(TicketDTO dto);
         TicketDTO TransformWithPerformance(Ticket t);
-        
+        TicketDTO TransformWithUser(Ticket ticket);
     }
     public class TicketFactory : ITicketFactory
     {
         private readonly ITicketTypeFactory _ticketTypeFactory;
         private readonly IPerformanceFactory _performanceFactory;
+        private readonly IApplicationUserFactory _applicationUserFactory;
 
-        public TicketFactory(ITicketTypeFactory ticketTypeFactory, IPerformanceFactory performanceFactory)
+        public TicketFactory(
+            ITicketTypeFactory ticketTypeFactory,
+            IPerformanceFactory performanceFactory,
+            IApplicationUserFactory applicationUserFactory)
         {
             _ticketTypeFactory = ticketTypeFactory;
             _performanceFactory = performanceFactory;
+            _applicationUserFactory = applicationUserFactory;
         }
 
         public TicketDTO Transform(Ticket t)
@@ -29,6 +34,7 @@ namespace BL.Factories
             if (t == null) return null;
             return new TicketDTO
             {
+                TicketId = t.TicketId,
                 TicketNr = t.TicketNr,
                 DatePurchased = t.DatePurchased,
                 TicketType = _ticketTypeFactory.Transform(t.TicketType)
@@ -42,7 +48,9 @@ namespace BL.Factories
             {
                 TicketNr = dto.TicketNr,
                 DatePurchased = dto.DatePurchased,
-                TicketTypeId = dto.TicketTypeId
+                TicketTypeId = dto.TicketTypeId,
+                PerformanceId = dto.PerformanceId,
+                ApplicationUserId=dto.ApplicationUserId
             };
         }
 
@@ -51,13 +59,27 @@ namespace BL.Factories
             if (t == null) return null;
             return new TicketDTO
             {
+                TicketId=t.TicketId,
                 TicketNr = t.TicketNr,
                 DatePurchased = t.DatePurchased,
                 TicketType = _ticketTypeFactory.Transform(t.TicketType),
                 Performance = _performanceFactory.Transform(t.Performance)
             };
         }
+
+        public TicketDTO TransformWithUser(Ticket t)
+        {
+            if (t == null) return null;
+            return new TicketDTO
+            {
+                TicketId = t.TicketId,
+                TicketNr = t.TicketNr,
+                DatePurchased = t.DatePurchased,
+                TicketTypeId = t.TicketTypeId,
+                ApplicationUser = _applicationUserFactory.Transform(t.ApplicationUser)
+            };
+        }
     }
-
-
 }
+
+

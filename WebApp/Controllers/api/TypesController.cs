@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BL.DTO;
 using BL.Interfaces;
-using Helpers;
+using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers.api
@@ -20,6 +17,13 @@ namespace WebApp.Controllers.api
         private readonly ILocationTypeService _locationTypeService;
         private readonly IPerformerTypeService _performerTypeService;
         private readonly ITicketTypeService _ticketTypeService;
+        private object Errors
+        {
+            get => ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+        }
 
         public TypesController(
             IEventTypeService eventTypeService,
@@ -54,7 +58,7 @@ namespace WebApp.Controllers.api
                 return Ok(_ticketTypeService.AddNewTicketType(newTicketType));
             }
 
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         #endregion
@@ -78,10 +82,10 @@ namespace WebApp.Controllers.api
 
             if (TryValidateModel(newLocationType))
             {
-                return Ok(_locationTypeService.AddNewLocationType(newLocationType)));
+                return Ok(_locationTypeService.AddNewLocationType(newLocationType));
             }
 
-            return BadRequest();
+            return BadRequest(Errors);
         }
 
         #endregion
@@ -108,7 +112,7 @@ namespace WebApp.Controllers.api
                 return Ok(_performerTypeService.AddNewPerformerType(newPerformerType));
             }
 
-            return BadRequest();
+            return BadRequest(Errors);
         }
         #endregion
 
@@ -130,10 +134,10 @@ namespace WebApp.Controllers.api
         {
             if (TryValidateModel(newEventType))
             {
-                return Ok(_eventTypeService.AddNewEventType(newEventType)));
+                return Ok(_eventTypeService.AddNewEventType(newEventType));
             }
 
-            return BadRequest();
+            return BadRequest(Errors);
         }
         #endregion
 

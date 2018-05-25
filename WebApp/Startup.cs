@@ -20,6 +20,7 @@ using BL.Services;
 using BL.Interfaces;
 using DAL.App.EF.Repositories;
 using DAL.App.Interfaces.Repositories;
+using Newtonsoft.Json;
 
 namespace WebApp
 {
@@ -71,6 +72,19 @@ namespace WebApp
             services.AddTransient<IPerformanceFactory, PerformanceFactory>();
             #endregion
 
+            #region Users
+            services.AddTransient<IApplicationUserService, ApplicationUserService>();
+            services.AddTransient<IApplicationUserFactory, ApplicationUserFactory>();
+
+            services.AddTransient<ITicketService, TicketService>();
+            services.AddTransient<ITicketFactory, TicketFactory>();
+
+            services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IInvoiceFactory, InvoiceFactory>();
+
+            services.AddTransient<IInvoiceRowFactory, InvoiceRowFactory>();
+
+            #endregion
 
             // Add uow to DI container
 
@@ -157,7 +171,10 @@ namespace WebApp
             });
 
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -42,7 +42,7 @@ namespace DAL.App.EF
         public IPerformanceRepository Performances => GetCustomRepository<IPerformanceRepository>();
         public IPerformerRepository Performers => GetCustomRepository<IPerformerRepository>();
         public IRepository<PerformerType> PerformerTypes => GetEntityRepository<PerformerType>();
-        public IRepository<Ticket> Tickets => GetEntityRepository<Ticket>();
+        public ITicketRepository Tickets => GetCustomRepository<ITicketRepository>();
         public IRepository<TicketType> TicketTypes => GetEntityRepository<TicketType>();
 
         public IUserRepository Users => _userRepository;
