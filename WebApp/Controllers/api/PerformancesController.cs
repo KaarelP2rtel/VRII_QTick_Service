@@ -136,7 +136,14 @@ namespace WebApp.Controllers
         [HttpPost]
         [Route("Performances")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public PerformanceDTO AddPerformance([FromBody] PerformanceDTO newPerformance) => _performanceService.AddNewPerformance(newPerformance);
+        public IActionResult AddPerformance([FromBody] PerformanceDTO newPerformance)
+        {
+            if (TryValidateModel(newPerformance))
+            {
+                return Ok(_performanceService.AddNewPerformance(newPerformance));
+            }
+            return BadRequest();
+        }
 
         [HttpGet]
         [Route("PerformancesWithPerformers")]
