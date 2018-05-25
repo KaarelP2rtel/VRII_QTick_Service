@@ -7,6 +7,7 @@ using DAL.App.Interfaces.Repositories;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace DAL.App.EF.Repositories
 {
     public class EFUserRepository : IUserRepository
@@ -29,9 +30,13 @@ namespace DAL.App.EF.Repositories
                 .SingleOrDefault(au => au.Id == id);
         }
 
-        public  void Add(ApplicationUser user)
+        public  void Add(ApplicationUser user,string pass)
         {
-             _userManager.CreateAsync(user);
+            var res = _userManager.CreateAsync(user, pass).Result;
+            if (res == IdentityResult.Success)
+            {
+                _userManager.AddToRoleAsync(user, Roles.User).Wait();
+            }
         }
 
         public ApplicationUser Update(ApplicationUser user)
@@ -53,6 +58,11 @@ namespace DAL.App.EF.Repositories
             Remove(user);
         }
 
-       
+        public ApplicationUser Update(ApplicationUser user, string oldPass, string newPass)
+        {
+            _userManager.UpdateAsync(user);
+            _userManager.ChangePasswordAsync(user, oldPass, newPass);
+            return Find(user.Id);
+        }
     }
 }

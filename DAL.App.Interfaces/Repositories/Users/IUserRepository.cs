@@ -11,9 +11,10 @@ namespace DAL.App.Interfaces.Repositories
 
         ApplicationUser Find(string id);
 
-        void Add(ApplicationUser user);
+        void Add(ApplicationUser user, string pass);
 
         ApplicationUser Update(ApplicationUser user);
+        ApplicationUser Update(ApplicationUser user, string oldPass,string newPass);
 
         void Remove(ApplicationUser user);
         void Remove(string id);

@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.App.EF", "DAL.App.EF\DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{6E9F881F-35EE-4AE1-B310-3AAE227305A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{07E2C075-0EA6-4094-8B88-AD4CE1E62430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Helpers\Helpers.csproj", "{07E2C075-0EA6-4094-8B88-AD4CE1E62430}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

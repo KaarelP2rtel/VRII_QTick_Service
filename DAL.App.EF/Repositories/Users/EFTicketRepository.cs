@@ -18,18 +18,20 @@ namespace DAL.App.EF.Repositories
         public override IEnumerable<Ticket> All()
         {
             return RepositoryDbSet
-                //.Include(t => t.ApplicationUser)
+                
                 .Include(t => t.Performance)
                 .Include(t => t.TicketType)
+                .Include(t => t.ApplicationUser)
                 .ToList();
         }
 
         public override Ticket Find(params object[] id)
         {
             return RepositoryDbSet
-                //.Include(t => t.ApplicationUser)
+                
                 .Include(t => t.Performance)
                 .Include(t => t.TicketType)
+                 .Include(t => t.ApplicationUser)
                 .SingleOrDefault(t => t.TicketId==(int)id[0]);
         }
     }
