@@ -20,6 +20,7 @@ namespace Domain
         [MaxLength(200)]
         public string LocationContact { get; set; }
         //Table relations
+        [Required]
         public int LocationTypeId { get; set; }
         public LocationType LocationType { get; set; }
 

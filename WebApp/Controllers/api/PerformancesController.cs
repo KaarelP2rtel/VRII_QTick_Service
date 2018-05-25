@@ -50,7 +50,13 @@ namespace WebApp.Controllers
         [HttpPost]
         [Route("Locations")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public LocationDTO AddLocation([FromBody] LocationDTO newLocation) => _locationService.AddNewLocation(newLocation);
+        public IActionResult AddLocation([FromBody] LocationDTO newLocation)
+        {
+            if (TryValidateModel(newLocation)){
+                return Ok(_locationService.AddNewLocation(newLocation));
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
         [Route("LocationsOfType/{id}")]
@@ -72,9 +78,16 @@ namespace WebApp.Controllers
         [HttpPost]
         [Route("Events")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public EventDTO AddEvent([FromBody] EventDTO newEvent) => _eventService.AddNewEvent(newEvent);
+        public IActionResult AddEvent([FromBody] EventDTO newEvent)
+        {
+            if (TryValidateModel(newEvent))
+            {
+                return Ok(_eventService.AddNewEvent(newEvent));
+            }
+            return BadRequest();
+        }
 
-        [HttpPost]
+        [HttpGet]
         [Route("EventsOfType/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<EventDTO> EventsOfType([FromRoute] int id) => _eventService.GetAllEventsByTypeId(id);
@@ -94,9 +107,16 @@ namespace WebApp.Controllers
         [HttpPost]
         [Route("Performers")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public PerformerDTO AddPerformer([FromBody] PerformerDTO newPerformer) => _performerService.AddNewPerformer(newPerformer);
+        public IActionResult AddPerformer([FromBody] PerformerDTO newPerformer)
+        {
+            if (TryValidateModel(newPerformer))
+            {
+                return Ok(_performerService.AddNewPerformer(newPerformer));
+            }
+            return BadRequest();
+        }
 
-        [HttpPost]
+        [HttpGet]
         [Route("PerformersOfType/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<PerformerDTO> PerformersOfType([FromRoute] int id) => _performerService.GetAllPerformersByTypeId(id);
@@ -131,9 +151,14 @@ namespace WebApp.Controllers
         [HttpPost]
         [Route("AddPerformerToPerformance")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public PerformanceDTO AddPerformer([FromBody] PerformancePerformerDTO newPerformer)
+        public IActionResult AddPerformer([FromBody] PerformancePerformerDTO newPerformer)
         {
-            return _performanceService.AddPerformerToPerformance(newPerformer);
+            if (TryValidateModel(newPerformer))
+            {
+                return Ok(_performanceService.AddPerformerToPerformance(newPerformer));
+            }
+            return BadRequest();
+            
         }
         #endregion
 

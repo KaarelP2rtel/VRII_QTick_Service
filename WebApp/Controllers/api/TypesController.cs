@@ -47,7 +47,16 @@ namespace WebApp.Controllers.api
         [HttpPost]
         [Route("TicketTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public TicketTypeDTO AddTicketType([FromBody] TicketTypeDTO newTicketType) => _ticketTypeService.AddNewTicketType(newTicketType);
+        public IActionResult AddTicketType([FromBody] TicketTypeDTO newTicketType)
+        {
+            if (TryValidateModel(newTicketType))
+            {
+                return Ok(_ticketTypeService.AddNewTicketType(newTicketType));
+            }
+
+            return BadRequest();
+        }
+
         #endregion
 
         #region LocationTypes
@@ -64,9 +73,19 @@ namespace WebApp.Controllers.api
         [HttpPost]
         [Route("LocationTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public LocationTypeDTO AddLocationType([FromBody] LocationTypeDTO newLocationType) => _locationTypeService.AddNewLocationType(newLocationType);
+        public IActionResult AddLocationType([FromBody] LocationTypeDTO newLocationType)
+        {
+
+            if (TryValidateModel(newLocationType))
+            {
+                return Ok(_locationTypeService.AddNewLocationType(newLocationType)));
+            }
+
+            return BadRequest();
+        }
+
         #endregion
-        
+
         #region PerformerTypes
         [HttpGet]
         [Route("PerformerTypes")]
@@ -81,9 +100,18 @@ namespace WebApp.Controllers.api
         [HttpPost]
         [Route("PerformerTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public PerformerTypeDTO AddPerformerType([FromBody] PerformerTypeDTO newPerformerType) => _performerTypeService.AddNewPerformerType(newPerformerType);
-        #endregion
+        public IActionResult AddPerformerType([FromBody] PerformerTypeDTO newPerformerType)
+        {
         
+            if (TryValidateModel(newPerformerType))
+            {
+                return Ok(_performerTypeService.AddNewPerformerType(newPerformerType));
+            }
+
+            return BadRequest();
+        }
+        #endregion
+
         #region EventTypes
         [HttpGet]
         [Route("EventTypes")]
@@ -98,7 +126,15 @@ namespace WebApp.Controllers.api
         [HttpPost]
         [Route("EventTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public EventTypeDTO AddEventType([FromBody] EventTypeDTO newEventType) => _eventTypeService.AddNewEventType(newEventType);
+        public IActionResult AddEventType([FromBody] EventTypeDTO newEventType)
+        {
+            if (TryValidateModel(newEventType))
+            {
+                return Ok(_eventTypeService.AddNewEventType(newEventType)));
+            }
+
+            return BadRequest();
+        }
         #endregion
 
     }
