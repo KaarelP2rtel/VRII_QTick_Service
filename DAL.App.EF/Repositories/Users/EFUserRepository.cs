@@ -26,7 +26,7 @@ namespace DAL.App.EF.Repositories
 
         public ApplicationUser Find(string id)
         {
-            return _userManager.Users.ToList()
+            return _userManager.Users
                 .SingleOrDefault(au => au.Id == id);
         }
 
@@ -63,6 +63,13 @@ namespace DAL.App.EF.Repositories
             _userManager.UpdateAsync(user);
             _userManager.ChangePasswordAsync(user, oldPass, newPass);
             return Find(user.Id);
+        }
+
+        public ApplicationUser FindByName(string username)
+        {
+            return _userManager.Users
+                .Where(u => u.UserName == username)
+                .SingleOrDefault();
         }
     }
 }

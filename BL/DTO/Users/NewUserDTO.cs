@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BL.DTO.Users
+namespace BL.DTO
 {
     public class NewUserDTO
     {

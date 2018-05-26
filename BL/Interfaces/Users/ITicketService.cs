@@ -11,7 +11,8 @@ namespace BL.Interfaces
         TicketDTO GetTicketById(int id);
         TicketDTO GetTicketByIdWithPerformance(int id);
         TicketDTO GetTicketByIdWithUser(int id);
-        TicketDTO AddNewTicket(TicketDTO ticket);
-
+        TicketDTO AddNewTicket(TicketDTO t);
+        TicketDTO GetTicketForUser(string username, int id);
+        List<TicketDTO> GetTicketsForUser(string username);
     }
 }

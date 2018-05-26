@@ -9,7 +9,7 @@ namespace BL.Interfaces
     {
         List<ApplicationUserDTO> GetAllApplicationUsers();
         ApplicationUserDTO GetApplicationUserById(string id);
-        ApplicationUserDTO AddNewApplicationUser(ApplicationUserDTO newApplicationUser);
-
+        ApplicationUserDTO AddNewApplicationUser(NewUserDTO newUser);
+        ApplicationUserDTO GetApplicationUserByName(string userName);
     }
 }

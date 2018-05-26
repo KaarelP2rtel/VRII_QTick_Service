@@ -18,8 +18,7 @@ namespace DAL.App.Interfaces.Repositories
 
         void Remove(ApplicationUser user);
         void Remove(string id);
-
-   
+        ApplicationUser FindByName(string username);
     }
 }
 

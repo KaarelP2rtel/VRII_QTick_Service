@@ -34,7 +34,7 @@ namespace DAL.App.EF
 
         public IEventRepository Events => GetCustomRepository<IEventRepository>();
         public IRepository<EventType> EventTypes => GetEntityRepository<EventType>();
-        public IRepository<Invoice> Invoices => GetEntityRepository<Invoice>();
+        public IInvoiceRepository Invoices => GetCustomRepository<IInvoiceRepository>();
         public IRepository<InvoiceRow> InvoiceRows => GetEntityRepository<InvoiceRow>();
         public ILocationRepository Locations => GetCustomRepository<ILocationRepository>();
         public IRepository<LocationType> LocationTypes => GetEntityRepository<LocationType>();

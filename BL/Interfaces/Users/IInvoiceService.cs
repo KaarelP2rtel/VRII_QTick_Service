@@ -11,5 +11,7 @@ namespace BL.Interfaces
 
         InvoiceDTO GetInvoiceById(int id);
         InvoiceDTO AddNewInvoice(InvoiceDTO newInvoice);
+        List<InvoiceDTO> GetInvoicesForUser(string username);
+        InvoiceDTO GetInvoiceForUser(string username, int id);
     }
 }

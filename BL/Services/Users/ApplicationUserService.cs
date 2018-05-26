@@ -22,6 +22,20 @@ namespace BL.Services
             _applicationUserFactory = applicationUserFactory;
         }
 
+        public ApplicationUserDTO AddNewApplicationUser(NewUserDTO newUser)
+        {
+
+            _uow.Users.Add(new ApplicationUser
+            {
+                UserName = newUser.UserName,
+                Email = newUser.UserName,
+                Name = newUser.Name,
+                Registered=DateTime.Now
+                
+            },newUser.Password);
+            return _applicationUserFactory.Transform(_uow.Users.FindByName(newUser.UserName));
+        }
+
         public List<ApplicationUserDTO> GetAllApplicationUsers()
         {
             return _uow.Users.All()
@@ -31,12 +45,12 @@ namespace BL.Services
 
         public ApplicationUserDTO GetApplicationUserById(string id)
         {
-            throw new NotImplementedException();
+            return _applicationUserFactory.Transform(_uow.Users.Find(id));
         }
 
-        public ApplicationUserDTO AddNewApplicationUser(ApplicationUserDTO newApplicationUser)
+        public ApplicationUserDTO GetApplicationUserByName(string userName)
         {
-            throw new NotImplementedException();
+            return _applicationUserFactory.Transform(_uow.Users.FindByName(userName));
         }
     }
 }

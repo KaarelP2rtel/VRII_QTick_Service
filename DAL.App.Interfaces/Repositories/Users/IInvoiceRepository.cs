@@ -8,5 +8,7 @@ namespace DAL.App.Interfaces.Repositories
 {
     public interface IInvoiceRepository : IRepository<Invoice>
     {
+        IEnumerable<Invoice> AllForUser(string id);
+        
     }
 }

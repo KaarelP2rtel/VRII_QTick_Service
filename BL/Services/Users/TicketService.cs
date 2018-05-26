@@ -14,7 +14,9 @@ namespace BL.Services
         private readonly IAppUnitOfWork _uow;
         private readonly ITicketFactory _ticketFactory;
 
-        public TicketService(IAppUnitOfWork uow, ITicketFactory ticketFactory)
+        public TicketService(
+            IAppUnitOfWork uow,
+            ITicketFactory ticketFactory)
         {
             _uow = uow;
             _ticketFactory = ticketFactory;
@@ -47,6 +49,19 @@ namespace BL.Services
         public TicketDTO GetTicketByIdWithUser(int id)
         {
             return _ticketFactory.TransformWithUser(_uow.Tickets.FindWithUser(id));
+        }
+
+        public TicketDTO GetTicketForUser(string username, int ticketId)
+        {
+            var user = _uow.Users.FindByName(username);
+            return _ticketFactory.TransformWithPerformance(_uow.Tickets.FindForUser(user.Id, ticketId));
+        }
+
+        public List<TicketDTO> GetTicketsForUser(string username)
+        {
+            var user = _uow.Users.FindByName(username);
+            return _uow.Tickets.AllForUser(user.Id)
+                .Select(t => _ticketFactory.Transform(t)).ToList();
         }
     }
 }

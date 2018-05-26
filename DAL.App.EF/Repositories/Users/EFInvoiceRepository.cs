@@ -22,11 +22,21 @@ namespace DAL.App.EF.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Invoice> AllForUser(string id)
+        {
+            return RepositoryDbSet
+                .Include(i => i.InvoiceRows)
+                .Where(i => i.ApplicationUserId==id)
+                .ToList();
+        }
+
         public override Invoice Find(params object[] id)
         {
             return RepositoryDbSet
                  .Include(i => i.InvoiceRows)
                  .SingleOrDefault(i => i.InvoiceId==(int)id[0]);
         }
+
+      
     }
 }

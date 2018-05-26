@@ -40,5 +40,19 @@ namespace BL.Services
             _uow.SaveChanges();
             return _invoiceFactory.Transform(_uow.Invoices.Find(l.InvoiceId));
         }
+
+        public List<InvoiceDTO> GetInvoicesForUser(string username)
+        {
+            var user = _uow.Users.FindByName(username);
+            return _uow.Invoices.AllForUser(user.Id).Select(i => _invoiceFactory.Transform(i)).ToList();
+        }
+
+        public InvoiceDTO GetInvoiceForUser(string username, int id)
+        {
+            var user = _uow.Users.FindByName(username);
+            var invoice = _uow.Invoices.Find(id);
+            if (invoice.ApplicationUserId != user.Id) ;
+            return _invoiceFactory.Transform(invoice);
+        }
     }
 }

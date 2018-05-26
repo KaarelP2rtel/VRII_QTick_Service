@@ -25,6 +25,13 @@ namespace DAL.App.EF.Repositories
                 .ToList();
         }
 
+        public List<Ticket> AllForUser(string id)
+        {
+            return RepositoryDbSet
+                .Where(t => t.ApplicationUserId == id)
+                .ToList();
+        }
+
         public override Ticket Find(params object[] id)
         {
             return RepositoryDbSet
@@ -33,6 +40,14 @@ namespace DAL.App.EF.Repositories
                 .Include(t => t.TicketType)
                 
                 .SingleOrDefault(t => t.TicketId==(int)id[0]);
+        }
+
+        public Ticket FindForUser(string id, int ticketId)
+        {
+            return RepositoryDbSet
+                .Where(t => t.ApplicationUserId == id && t.TicketId == ticketId)
+                .SingleOrDefault();
+
         }
 
         public Ticket FindWithUser(int id)
