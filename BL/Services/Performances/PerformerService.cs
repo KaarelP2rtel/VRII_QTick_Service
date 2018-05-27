@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using BL.DTO;
@@ -22,10 +23,33 @@ namespace BL.Services
 
         public PerformerDTO AddNewPerformer(PerformerDTO newPerformer)
         {
-            var p = _performerFactory.Transform(newPerformer);
-            _uow.Performers.Add(p);
-            _uow.SaveChanges();
-            return _performerFactory.Transform(_uow.Performers.Find(p.PerformerId));
+            try
+            {
+                var p = _performerFactory.Transform(newPerformer);
+                _uow.Performers.Add(p);
+                _uow.SaveChanges();
+                return _performerFactory.Transform(_uow.Performers.Find(p.PerformerId));
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
+        }
+
+        public bool DeletePerformer(int id)
+        {
+            try
+            {
+                _uow.Performers.Remove(id);
+                _uow.SaveChanges();
+                return true;
+            }
+            catch (DBConcurrencyException)
+            {
+                return false;
+            }
+
         }
 
         public List<PerformerDTO> GetAllPerformers()
@@ -35,7 +59,7 @@ namespace BL.Services
                 .Select(p => _performerFactory.Transform(p))
                 .ToList();
         }
- 
+
         public List<PerformerDTO> GetAllPerformersByTypeId(int typeId)
         {
             return _uow.Performers
@@ -49,6 +73,19 @@ namespace BL.Services
             return _performerFactory.Transform(_uow.Performers.Find(id));
         }
 
+        public PerformerDTO UpdatePerformer(PerformerDTO performer)
+        {
+            try
+            {
+                var p = _uow.Performers.Update(_performerFactory.Transform(performer));
+                _uow.SaveChanges();
+                return _performerFactory.Transform(p);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
 
+        }
     }
 }

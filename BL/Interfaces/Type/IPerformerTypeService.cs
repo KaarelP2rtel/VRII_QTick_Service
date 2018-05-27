@@ -10,5 +10,7 @@ namespace BL.Interfaces
         List<PerformerTypeDTO> GetAllPerformerTypes();
         PerformerTypeDTO GetPerformerTypeById(int id);
         PerformerTypeDTO AddNewPerformerType(PerformerTypeDTO newPerformerType);
+        bool DeletePerformerType(int id);
+        PerformerTypeDTO UpdatePerformerType(PerformerTypeDTO performerType);
     }
 }

@@ -23,6 +23,7 @@ namespace BL.Factories
             {
                 UserId = au.Id,
                 Name = au.Name,
+                UserName=au.UserName,
                 Registered = au.Registered,
                 Active = au.Active
             };

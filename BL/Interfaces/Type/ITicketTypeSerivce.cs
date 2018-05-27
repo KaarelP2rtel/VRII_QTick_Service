@@ -10,5 +10,7 @@ namespace BL.Interfaces
         List<TicketTypeDTO> GetAllTicketTypes();
         TicketTypeDTO GetTicketTypeById(int id);
         TicketTypeDTO AddNewTicketType(TicketTypeDTO newTicketType);
+        bool DeleteTicketType(int id);
+        TicketTypeDTO UpdateTicketType(TicketTypeDTO ticketType);
     }
 }

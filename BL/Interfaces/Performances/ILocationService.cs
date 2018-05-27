@@ -12,7 +12,7 @@ namespace BL.Interfaces
 
         LocationDTO GetLocationById(int id);
         LocationDTO AddNewLocation(LocationDTO newLocation);
-
-
+        bool DeleteLocation(int id);
+        LocationDTO UpdateLocation(LocationDTO location);
     }
 }

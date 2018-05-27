@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,10 @@ namespace DAL.EF.Repositories
 
         public virtual void Remove(params object[] id)
         {
-            RepositoryDbSet.Remove(Find(id));
+            var e = Find(id);
+            if (e == null) throw new DBConcurrencyException();
+            RepositoryDbSet.Remove(e);
+            
         }
 
         public virtual bool Exists(TEntity entity)

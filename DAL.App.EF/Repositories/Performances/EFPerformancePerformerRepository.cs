@@ -30,5 +30,12 @@ namespace DAL.App.EF.Repositories
                  .Include(pp => pp.Performance)
                  .SingleOrDefault(pp => pp.PerformancePerformerId == (int)id[0]);
         }
+
+        public PerformancePerformer FindByBothIds(int performanceId, int performerId)
+        {
+            return RepositoryDbSet
+                .Where(pp => pp.PerformanceId == performanceId && pp.PerformerId == performerId)
+                .SingleOrDefault();
+        }
     }
 }

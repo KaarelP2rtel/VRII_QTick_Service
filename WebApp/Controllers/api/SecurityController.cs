@@ -108,6 +108,7 @@ namespace WebApp.Controllers.Api
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         msg = User.Identity.Name
+                     
                     };
 
                     // serialise result and return it

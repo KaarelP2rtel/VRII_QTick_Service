@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using BL.DTO;
 using BL.Interfaces;
 using Domain;
@@ -36,108 +37,239 @@ namespace WebApp.Controllers.api
             _performerTypeService = performerTypeService;
             _ticketTypeService = ticketTypeService;
         }
-
+        
         #region TicketTypes
         [HttpGet]
-        [Route("TicketTypes")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Tickets")]
         public List<TicketTypeDTO> GetTicketTypes() => _ticketTypeService.GetAllTicketTypes();
 
         [HttpGet]
-        [Route("TicketTypes/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Tickets/{id}")]
         public TicketTypeDTO GetTicketTypeById([FromRoute] int id) => _ticketTypeService.GetTicketTypeById(id);
 
         [HttpPost]
-        [Route("TicketTypes")]
+        [Route("Tickets")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddTicketType([FromBody] TicketTypeDTO newTicketType)
         {
-            if (TryValidateModel(newTicketType))
+            if (newTicketType == null) return BadRequest();
+
+            if (TryValidateModel(newTicketType) || newTicketType.TicketTypeId!=0)
             {
-                return Ok(_ticketTypeService.AddNewTicketType(newTicketType));
+                var tt = _ticketTypeService.AddNewTicketType(newTicketType);
+                if (tt == null) return StatusCode(418);
+                return Ok();
+
             }
 
             return BadRequest(Errors);
         }
 
+        [HttpPut]
+        [Route("Tickets")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdateTicketType([FromBody] TicketTypeDTO ticketType)
+        {
+            if (ticketType == null) return BadRequest();
+            //Manual validation
+            if (TryValidateModel(ticketType) || ticketType.TicketTypeId == 0)
+            {
+                var tt = _ticketTypeService.UpdateTicketType(ticketType);
+                if (tt == null) return NotFound();
+                return Ok();
+
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Tickets/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeleteTicketType([FromRoute] int id)
+        {
+            if (_ticketTypeService.DeleteTicketType(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
+
+
+
         #endregion
 
         #region LocationTypes
         [HttpGet]
-        [Route("LocationTypes")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Locations")]
         public List<LocationTypeDTO> GetLocationTypes() => _locationTypeService.GetAllLocationTypes();
 
         [HttpGet]
-        [Route("LocationTypes/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Locations/{id}")]
+
         public LocationTypeDTO GetLocationTypeById([FromRoute] int id) => _locationTypeService.GetLocationTypeById(id);
 
         [HttpPost]
-        [Route("LocationTypes")]
+        [Route("Locations")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddLocationType([FromBody] LocationTypeDTO newLocationType)
         {
-
-            if (TryValidateModel(newLocationType))
+            if (newLocationType == null) return BadRequest();
+            if (TryValidateModel(newLocationType) ||newLocationType.LocationTypeId != 0)
             {
-                return Ok(_locationTypeService.AddNewLocationType(newLocationType));
+                var lt = _locationTypeService.AddNewLocationType(newLocationType);
+                if (lt == null) return StatusCode(418);
+                return Ok();
             }
 
             return BadRequest(Errors);
+        }
+
+        [HttpPut]
+        [Route("Locations")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdateLocationType([FromBody] LocationTypeDTO locationType)
+        {
+            if (locationType == null) return BadRequest();
+            if (TryValidateModel(locationType) || locationType.LocationTypeId == 0)
+            {
+                var lt = _locationTypeService.UpdateLocationType(locationType);
+                if (lt == null) return NotFound();
+                return Ok();
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Locations/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeleteLocationType([FromRoute] int id)
+        {
+            if (_locationTypeService.DeleteLocationType(id))
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
         #endregion
 
         #region PerformerTypes
         [HttpGet]
-        [Route("PerformerTypes")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Performers")]
         public List<PerformerTypeDTO> GetPerformerTypes() => _performerTypeService.GetAllPerformerTypes();
 
         [HttpGet]
-        [Route("PerformerTypes/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Performers{id}")]
         public PerformerTypeDTO GetPerformerTypeById([FromRoute] int id) => _performerTypeService.GetPerformerTypeById(id);
 
         [HttpPost]
-        [Route("PerformerTypes")]
+        [Route("Performers")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddPerformerType([FromBody] PerformerTypeDTO newPerformerType)
         {
-        
-            if (TryValidateModel(newPerformerType))
+            if (newPerformerType == null) return BadRequest();
+
+            if (TryValidateModel(newPerformerType) ||newPerformerType.PerformerTypeId !=0)
             {
-                return Ok(_performerTypeService.AddNewPerformerType(newPerformerType));
+                var pt = _performerTypeService.AddNewPerformerType(newPerformerType);
+                if (pt == null) return StatusCode(418);
+                return Ok(pt);
             }
 
             return BadRequest(Errors);
+        }
+
+        [HttpPut]
+        [Route("Performers")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdatePerformerType([FromBody] PerformerTypeDTO performerType)
+        {
+            if ( performerType == null) return BadRequest();
+
+            if (TryValidateModel(performerType) || performerType.PerformerTypeId == 0)
+            {
+                var pt = _performerTypeService.UpdatePerformerType(performerType);
+                if (pt == null) return NotFound();
+                return Ok(pt);
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Performers/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeletePerformerType([FromRoute] int id)
+        {
+            if (_performerTypeService.DeletePerformerType(id))
+            {
+                return StatusCode(418);
+            }
+            return NotFound();
         }
         #endregion
 
         #region EventTypes
         [HttpGet]
-        [Route("EventTypes")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Events")]
         public List<EventTypeDTO> GetEventTypes() => _eventTypeService.GetAllEventTypes();
 
         [HttpGet]
-        [Route("EventTypes/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Events/{id}")]
         public EventTypeDTO GetEventTypeById([FromRoute] int id) => _eventTypeService.GetEventTypeById(id);
 
         [HttpPost]
-        [Route("EventTypes")]
+        [Route("Events")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddEventType([FromBody] EventTypeDTO newEventType)
         {
-            if (TryValidateModel(newEventType))
+            if (newEventType== null) return BadRequest();
+
+            if (TryValidateModel(newEventType) ||newEventType.EventTypeId != 0)
             {
-                return Ok(_eventTypeService.AddNewEventType(newEventType));
+                var et = _eventTypeService.AddNewEventType(newEventType);
+                if(et ==null) return StatusCode(418);
+                return Ok();
             }
 
             return BadRequest(Errors);
+        }
+
+        [HttpPut]
+        [Route("Events")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdateEventType([FromBody] EventTypeDTO eventType)
+        {
+            if (eventType == null) return BadRequest();
+
+            if (TryValidateModel(eventType) || eventType.EventTypeId == 0)
+            {
+                var et = _eventTypeService.UpdateEventType(eventType);
+                if (et == null) return NotFound();
+                return Ok(et);
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Events/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeleteEventType([FromRoute] int id)
+        {
+            if (_eventTypeService.DeleteEventType(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
         }
         #endregion
 

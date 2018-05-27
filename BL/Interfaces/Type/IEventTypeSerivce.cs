@@ -10,5 +10,7 @@ namespace BL.Interfaces
         List<EventTypeDTO> GetAllEventTypes();
         EventTypeDTO GetEventTypeById(int id);
         EventTypeDTO AddNewEventType(EventTypeDTO newEventType);
+        bool DeleteEventType(int id);
+        EventTypeDTO UpdateEventType(EventTypeDTO eventType);
     }
 }
