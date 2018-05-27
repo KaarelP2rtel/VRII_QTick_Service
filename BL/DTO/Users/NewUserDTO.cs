@@ -20,7 +20,7 @@ namespace BL.DTO
         [MinLength(10)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
+        
 
         [Required]
         [Compare(nameof(Password))]
