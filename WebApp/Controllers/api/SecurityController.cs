@@ -115,7 +115,7 @@ namespace WebApp.Controllers.Api
                     return Ok(res);
                 }
             }
-            return BadRequest("Could not create token");
+            return BadRequest("No User found");
         }
     }
 }

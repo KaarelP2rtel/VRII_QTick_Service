@@ -49,6 +49,7 @@ namespace WebApp.Controllers.api
 
         [HttpPost]
         [Route("Tickets")]
+        
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddTicketType([FromBody] TicketTypeDTO newTicketType)
         {
@@ -209,7 +210,7 @@ namespace WebApp.Controllers.api
         {
             if (_performerTypeService.DeletePerformerType(id))
             {
-                return StatusCode(418);
+                return Ok();
             }
             return NotFound();
         }

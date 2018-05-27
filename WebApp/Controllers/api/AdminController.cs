@@ -48,6 +48,7 @@ namespace WebApp.Controllers.api
         [Route("Users")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public List<ApplicationUserDTO> GetAllUsers() => _applicationUserService.GetAllApplicationUsers();
+        public List<RoleDTO>
         #endregion
 
         #region Tickets
@@ -76,6 +77,7 @@ namespace WebApp.Controllers.api
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddTicket([FromBody] TicketDTO newTicket)
         {
+            if (newTicket == null) return BadRequest();
             if (TryValidateModel(newTicket))
             {
                 return Ok(_ticketService.AddNewTicket(newTicket));

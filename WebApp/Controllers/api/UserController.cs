@@ -72,15 +72,17 @@ namespace WebApp.Controllers.api
         [AllowAnonymous]
         public IActionResult Register([FromBody] NewUserDTO newUser)
         {
-            
+            if (newUser == null) return BadRequest();
             if (TryValidateModel(newUser))
             {
                 if(_applicationUserService.GetApplicationUserByName(newUser.UserName) != null)
                 {
-#warning Needs better errror reporting and Password requirements checking
+
                     return BadRequest("Username taken");
                 }
-                return Ok(_applicationUserService.AddNewApplicationUser(newUser));
+                var u = _applicationUserService.AddNewApplicationUser(newUser);
+                if (u == null) return BadRequest();
+                return Ok(u);
               
             }
             return BadRequest(Errors);
