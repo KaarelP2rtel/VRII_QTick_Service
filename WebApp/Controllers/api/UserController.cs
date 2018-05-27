@@ -49,18 +49,22 @@ namespace WebApp.Controllers.api
 
         [HttpGet]
         [Route("Tickets")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<TicketDTO> GetTicketsForUser() => _ticketService.GetTicketsForUser(User.Identity.Name);
 
         [HttpGet]
         [Route("Tickets/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public TicketDTO GetTicketForUser([FromRoute] int id) => _ticketService.GetTicketForUser(User.Identity.Name, id);
 
         [HttpGet]
         [Route("Invoices")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<InvoiceDTO> GetInvoicesForUser() => _invoiceService.GetInvoicesForUser(User.Identity.Name);
 
         [HttpGet]
         [Route("Invoices/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public InvoiceDTO GetInvoiceForUser([FromBody] int id) => _invoiceService.GetInvoiceForUser(User.Identity.Name, id);
 
         [HttpPost]
@@ -68,15 +72,17 @@ namespace WebApp.Controllers.api
         [AllowAnonymous]
         public IActionResult Register([FromBody] NewUserDTO newUser)
         {
-            
+            if (newUser == null) return BadRequest();
             if (TryValidateModel(newUser))
             {
                 if(_applicationUserService.GetApplicationUserByName(newUser.UserName) != null)
                 {
-#warning Needs better errror reporting and Password requirements checking
+
                     return BadRequest("Username taken");
                 }
-                return Ok(_applicationUserService.AddNewApplicationUser(newUser));
+                var u = _applicationUserService.AddNewApplicationUser(newUser);
+                if (u == null) return BadRequest();
+                return Ok(u);
               
             }
             return BadRequest(Errors);

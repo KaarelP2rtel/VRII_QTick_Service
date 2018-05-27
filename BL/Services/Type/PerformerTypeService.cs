@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using BL.DTO;
@@ -35,11 +36,48 @@ namespace BL.Services
 
         public PerformerTypeDTO AddNewPerformerType(PerformerTypeDTO newPerformerType)
         {
-            //validation logic..
-            var performerType = _performerTypeFactory.Transform(newPerformerType);
-            _uow.PerformerTypes.Add(performerType);
-            _uow.SaveChanges();
-            return _performerTypeFactory.Transform(performerType);
+            try
+            {
+                var performerType = _performerTypeFactory.Transform(newPerformerType);
+                _uow.PerformerTypes.Add(performerType);
+                _uow.SaveChanges();
+                return _performerTypeFactory.Transform(performerType);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
+        }
+
+        public bool DeletePerformerType(int id)
+        {
+            try
+            {
+                _uow.PerformerTypes.Remove(id);
+                _uow.SaveChanges();
+                return true;
+            }
+            catch (DBConcurrencyException)
+            {
+                return false;
+            }
+
+        }
+
+        public PerformerTypeDTO UpdatePerformerType(PerformerTypeDTO performerType)
+        {
+
+            try
+            {
+                var p = _uow.PerformerTypes.Update(_performerTypeFactory.Transform(performerType));
+                _uow.SaveChanges();
+                return _performerTypeFactory.Transform(p);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
         }
     }
 }

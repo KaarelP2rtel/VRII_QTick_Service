@@ -44,12 +44,10 @@ namespace WebApp.Controllers
         #region Locations
         [HttpGet]
         [Route("Locations")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<LocationDTO> GetLocations() => _locationService.GetAllLocations();
 
         [HttpGet]
         [Route("Locations/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public LocationDTO GetLocation([FromRoute] int id) => _locationService.GetLocationById(id);
 
         [HttpPost]
@@ -57,27 +55,60 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddLocation([FromBody] LocationDTO newLocation)
         {
-            if (TryValidateModel(newLocation)){
-                return Ok(_locationService.AddNewLocation(newLocation));
+            if (newLocation== null) return BadRequest();
+
+            if (TryValidateModel(newLocation) || newLocation.LocationId!=0)
+            {
+                var l = _locationService.AddNewLocation(newLocation);
+                if (l == null) return StatusCode(418);
+                return Ok(l);
             }
             return BadRequest(Errors);
         }
 
-        [HttpPost]
-        [Route("LocationsOfType/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [HttpGet]
+        [Route("Locations/OfType/{id}")]
         public List<LocationDTO> LocationsOfType([FromRoute] int id) => _locationService.GetAllLocationsByTypeId(id);
+
+        [HttpPut]
+        [Route("Locations")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdateLocation([FromBody] LocationDTO location)
+        {
+
+            if (location == null) return BadRequest();
+            if (TryValidateModel(location) || location.LocationId == 0)
+            {
+                var l = _locationService.UpdateLocation(location);
+                if (l == null) return NotFound();
+                return Ok(l);
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Locations/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeleteLocation([FromRoute] int id)
+        {
+            if (_locationService.DeleteLocation(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
         #endregion
 
         #region Events
         [HttpGet]
         [Route("Events")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<EventDTO> GetEvents() => _eventService.GetAllEvents();
 
         [HttpGet]
         [Route("Events/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public EventDTO GetEvent([FromRoute] int id) => _eventService.GetEventById(id);
 
         [HttpPost]
@@ -85,28 +116,58 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddEvent([FromBody] EventDTO newEvent)
         {
-            if (TryValidateModel(newEvent))
+            if ( newEvent== null) return BadRequest();
+            if (TryValidateModel(newEvent) || newEvent.EventId!=0)
             {
-                return Ok(_eventService.AddNewEvent(newEvent));
+                var e = _eventService.AddNewEvent(newEvent);
+                if (e == null) return StatusCode(418);
+                return Ok(e);
             }
             return BadRequest(Errors);
         }
 
         [HttpGet]
-        [Route("EventsOfType/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Events/OfType/{id}")]
         public List<EventDTO> EventsOfType([FromRoute] int id) => _eventService.GetAllEventsByTypeId(id);
+
+        [HttpPut]
+        [Route("Events/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdateEvent([FromBody] EventDTO eventNew)
+        {
+            if (eventNew == null) return BadRequest();
+            if (TryValidateModel(eventNew) || eventNew.EventId == 0)
+            {
+                var e = _eventService.UpdateEvent(eventNew);
+                if (e == null) return NotFound();
+                return Ok(e);
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Events/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeleteEvent([FromRoute] int id)
+        {
+            if (_eventService.DeleteEvent(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
         #endregion
 
         #region Performers
         [HttpGet]
         [Route("Performers")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<PerformerDTO> GetPerformers() => _performerService.GetAllPerformers();
 
         [HttpGet]
         [Route("Performers/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public PerformerDTO GetPerformer([FromRoute] int id) => _performerService.GetPerformerById(id);
 
         [HttpPost]
@@ -114,28 +175,60 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddPerformer([FromBody] PerformerDTO newPerformer)
         {
-            if (TryValidateModel(newPerformer))
+            if (newPerformer == null) return BadRequest();
+            if (TryValidateModel(newPerformer) || newPerformer.PerformerId!=0)
             {
-                return Ok(_performerService.AddNewPerformer(newPerformer));
+                var p = _performerService.AddNewPerformer(newPerformer);
+                if (p == null) return StatusCode(418);
+                return Ok(p);
             }
             return BadRequest(Errors);
         }
 
         [HttpGet]
         [Route("PerformersOfType/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<PerformerDTO> PerformersOfType([FromRoute] int id) => _performerService.GetAllPerformersByTypeId(id);
+
+        [HttpPut]
+        [Route("Performers")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdatePerformer([FromBody] PerformerDTO performer)
+        {
+            if (performer == null) return BadRequest();
+            if (TryValidateModel(performer) || performer.PerformerId == 0)
+            {
+                var p = _performerService.UpdatePerformer(performer);
+                if (p == null) return NotFound();
+                return Ok();
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Performers/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeletePerformer([FromRoute] int id)
+        {
+            if (_performerService.DeletePerformer(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
+
+
         #endregion
 
         #region Performances
         [HttpGet]
         [Route("Performances")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public List<PerformanceDTO> GetPerformances() => _performanceService.GetPerformances();
 
         [HttpGet]
         [Route("Performances/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
         public PerformanceDTO GetPerformance([FromRoute] int id) => _performanceService.GetPerformanceById(id);
 
         [HttpPost]
@@ -143,38 +236,101 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddPerformance([FromBody] PerformanceDTO newPerformance)
         {
-            if (TryValidateModel(newPerformance))
+            if ( newPerformance == null) return BadRequest();
+            if (TryValidateModel(newPerformance) || newPerformance.PerformanceId !=0)
             {
-                return Ok(_performanceService.AddNewPerformance(newPerformance));
+                var p = _performanceService.AddNewPerformance(newPerformance);
+                if (p == null) return StatusCode(418);
+                return Ok(p);
             }
             return BadRequest(Errors);
         }
 
+
+        [HttpPut]
+        [Route("Performances")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult UpdatePerformance([FromBody] PerformanceDTO performance)
+        {
+            if ( performance== null) return BadRequest();
+            if (TryValidateModel(performance) || performance.PerformanceId == 0)
+            {
+                var p = _performanceService.UpdatePerformance(performance);
+                if (p == null) return NotFound();
+                return Ok(p);
+            }
+
+            return BadRequest(Errors);
+        }
+
+
+        [HttpDelete]
+        [Route("Performances/{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult DeletePerformance([FromRoute] int id)
+        {
+            if (_performanceService.DeletePerformance(id))
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
+
+
+
         [HttpGet]
-        [Route("PerformancesWithPerformers")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Performances/WithPerformers")]
         public List<PerformanceDTO> GetPerformancesWithPerformers() => _performanceService.GetPerformancesWithPerformers();
 
         [HttpGet]
-        [Route("PerformancesWithPerformers/{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.User)]
+        [Route("Performances/{id}/WithPerformers")]
         public PerformanceDTO GetPerformanceWithPerformers([FromRoute] int id) => _performanceService.GetPerformanceByIdWithPerformer(id);
 
-        [HttpPost]
-        [Route("AddPerformerToPerformance")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
-        public IActionResult AddPerformer([FromBody] PerformancePerformerDTO newPerformer)
-        {
-            if (TryValidateModel(newPerformer))
-            {
-                return Ok(_performanceService.AddPerformerToPerformance(newPerformer));
-            }
-            return BadRequest(Errors);
-            
-        }
+
+
+
+
+
         #endregion
 
+        #region PerformancePerformers
+        [HttpPost]
+        [Route("Performances/{performanceId}/AddPerformer/{performerId}")]
+        [Route("Performers/{performerId}/AddPerformance/{performanceId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult AddPerformerToPerformance([FromRoute] int performanceId, [FromRoute] int performerId)
+        {
+            //Did not want to redo service method, so manually created DTO instead
 
+            var pp = _performanceService.AddPerformerToPerformance(
+                new PerformancePerformerDTO
+                {
+                    PerformanceId = performanceId,
+                    PerformerId = performerId
+                });
+            if (pp == null) return StatusCode(418);
+            return Ok();
+
+
+
+
+        }
+
+        [HttpPost]
+        [Route("Performances/{performanceId}/RemovePerformer/{performerId}")]
+        [Route("Performers/{performerId}/RemovePerformance/{performanceId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
+        public IActionResult RemovePerformerFromPerformance([FromRoute] int performanceId, [FromRoute] int performerId)
+        {
+            if (_performanceService.RemovePerformerFromPerformance(performanceId, performerId))
+            {
+                return Ok();
+            }
+            return NotFound();
+
+        }
+        #endregion
 
     }
 }

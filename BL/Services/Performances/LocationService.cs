@@ -4,6 +4,7 @@ using BL.Interfaces;
 using DAL.App.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,34 @@ namespace BL.Services
 
         public LocationDTO AddNewLocation(LocationDTO newLocation)
         {
-            var l = _locationFactory.Transform(newLocation);
-             _uow.Locations.Add(l);
-            _uow.SaveChanges();
-            return _locationFactory.Transform( _uow.Locations.Find(l.LocationId));
-            //return newLocation;
+            try
+            {
+                var l = _locationFactory.Transform(newLocation);
+                _uow.Locations.Add(l);
+                _uow.SaveChanges();
+                return _locationFactory.Transform(_uow.Locations.Find(l.LocationId));
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
+
+        }
+
+        public bool DeleteLocation(int id)
+        {
+            try
+            {
+                _uow.Locations.Remove(id);
+                _uow.SaveChanges();
+                return (true);
+            }
+            catch (DBConcurrencyException)
+            {
+                return false;
+            }
+
         }
 
         public List<LocationDTO> GetAllLocations()
@@ -48,9 +72,22 @@ namespace BL.Services
 
         public LocationDTO GetLocationById(int id)
         {
-            return _locationFactory.Transform(_uow.Locations.Find(id));       
+            return _locationFactory.Transform(_uow.Locations.Find(id));
         }
 
+        public LocationDTO UpdateLocation(LocationDTO location)
+        {
+            try
+            {
+                var l = _uow.Locations.Update(_locationFactory.Transform(location));
+                _uow.SaveChanges();
+                return _locationFactory.Transform(l);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
 
+        }
     }
 }

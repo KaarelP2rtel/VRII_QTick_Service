@@ -4,6 +4,7 @@ using BL.Interfaces;
 using DAL.App.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,33 @@ namespace BL.Services
 
         public EventDTO AddNewEvent(EventDTO newEvent)
         {
-            var e = _eventFactory.Transform(newEvent);
-             _uow.Events.Add(e);
-            _uow.SaveChanges();
-            return _eventFactory.Transform( _uow.Events.Find(e.EventId));
+            try
+            {
+                var e = _eventFactory.Transform(newEvent);
+                _uow.Events.Add(e);
+                _uow.SaveChanges();
+                return _eventFactory.Transform(_uow.Events.Find(e.EventId));
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
+        }
+
+        public bool DeleteEvent(int id)
+        {
+            try
+            {
+                _uow.Events.Remove(id);
+                _uow.SaveChanges();
+                return true;
+            }
+            catch (DBConcurrencyException)
+            {
+                return false;
+            }
+
         }
 
         public List<EventDTO> GetAllEvents()
@@ -47,9 +71,22 @@ namespace BL.Services
 
         public EventDTO GetEventById(int id)
         {
-            return _eventFactory.Transform(_uow.Events.Find(id));       
+            return _eventFactory.Transform(_uow.Events.Find(id));
         }
 
+        public EventDTO UpdateEvent(EventDTO eventNew)
+        {
+            try
+            {
+                var e = _uow.Events.Update(_eventFactory.Transform(eventNew));
+                _uow.SaveChanges();
+                return _eventFactory.Transform(e);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
 
+        }
     }
 }

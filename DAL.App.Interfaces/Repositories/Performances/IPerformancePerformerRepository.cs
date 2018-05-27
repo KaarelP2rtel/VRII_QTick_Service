@@ -8,5 +8,6 @@ namespace DAL.App.Interfaces.Repositories
 {
     public interface IPerformancePerformerRepository : IRepository<PerformancePerformer>
     {
+        PerformancePerformer FindByBothIds(int performanceId, int performerId);
     }
 }

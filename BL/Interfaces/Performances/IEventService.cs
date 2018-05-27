@@ -12,7 +12,7 @@ namespace BL.Interfaces
 
         EventDTO GetEventById(int id);
         EventDTO AddNewEvent(EventDTO newEvent);
-
-
+        bool DeleteEvent(int id);
+        EventDTO UpdateEvent( EventDTO eventNew);
     }
 }

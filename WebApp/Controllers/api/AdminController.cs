@@ -46,19 +46,20 @@ namespace WebApp.Controllers.api
         #region Users
         [HttpGet]
         [Route("Users")]
-        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public List<ApplicationUserDTO> GetAllUsers() => _applicationUserService.GetAllApplicationUsers();
+        public List<RoleDTO>
         #endregion
 
         #region Tickets
         [HttpGet]
         [Route("Tickets")]
-       
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public List<TicketDTO> GetAllTickets() => _ticketService.GetAllTickets();
 
         [HttpGet]
         [Route("Tickets/{id}")]
-        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public TicketDTO GetTicketById([FromRoute] int id) => _ticketService.GetTicketById(id);
 
         [HttpGet]
@@ -68,14 +69,15 @@ namespace WebApp.Controllers.api
 
         [HttpGet]
         [Route("Tickets/{id}/WithPerformance")]
-       
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public TicketDTO GetTicketWithPerformance([FromRoute] int id) => _ticketService.GetTicketByIdWithPerformance(id);
 
         [HttpPost]
         [Route("Tickets")]
-      
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddTicket([FromBody] TicketDTO newTicket)
         {
+            if (newTicket == null) return BadRequest();
             if (TryValidateModel(newTicket))
             {
                 return Ok(_ticketService.AddNewTicket(newTicket));

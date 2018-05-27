@@ -10,5 +10,7 @@ namespace BL.Interfaces
         List<LocationTypeDTO> GetAllLocationTypes();
         LocationTypeDTO GetLocationTypeById(int id);
         LocationTypeDTO AddNewLocationType(LocationTypeDTO newLocationType);
+        LocationTypeDTO UpdateLocationType(LocationTypeDTO locationType);
+        bool DeleteLocationType(int id);
     }
 }

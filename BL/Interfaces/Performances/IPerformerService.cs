@@ -14,5 +14,7 @@ namespace BL.Interfaces
         PerformerDTO GetPerformerById(int personId);
 
         PerformerDTO AddNewPerformer(PerformerDTO newPerformer);
+        PerformerDTO UpdatePerformer(PerformerDTO performer);
+        bool DeletePerformer(int id);
     }
 }

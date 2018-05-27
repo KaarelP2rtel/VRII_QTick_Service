@@ -38,7 +38,7 @@ namespace DAL.App.EF
         public IRepository<InvoiceRow> InvoiceRows => GetEntityRepository<InvoiceRow>();
         public ILocationRepository Locations => GetCustomRepository<ILocationRepository>();
         public IRepository<LocationType> LocationTypes => GetEntityRepository<LocationType>();
-        public IRepository<PerformancePerformer> PerformancePerformers => GetEntityRepository<PerformancePerformer>();
+        public IPerformancePerformerRepository PerformancePerformers => GetCustomRepository<IPerformancePerformerRepository>();
         public IPerformanceRepository Performances => GetCustomRepository<IPerformanceRepository>();
         public IPerformerRepository Performers => GetCustomRepository<IPerformerRepository>();
         public IRepository<PerformerType> PerformerTypes => GetEntityRepository<PerformerType>();

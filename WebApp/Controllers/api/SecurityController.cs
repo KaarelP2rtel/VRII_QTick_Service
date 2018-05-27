@@ -108,13 +108,14 @@ namespace WebApp.Controllers.Api
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         msg = User.Identity.Name
+                     
                     };
 
                     // serialise result and return it
                     return Ok(res);
                 }
             }
-            return BadRequest("Could not create token");
+            return BadRequest("No User found");
         }
     }
 }

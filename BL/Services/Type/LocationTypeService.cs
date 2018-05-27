@@ -4,6 +4,7 @@ using BL.Interfaces;
 using DAL.App.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -22,10 +23,33 @@ namespace BL.Services
 
         public LocationTypeDTO AddNewLocationType(LocationTypeDTO newLocationType)
         {
-            var lt = _locationTypeFactory.Transform(newLocationType);
-            _uow.LocationTypes.Add(lt);
-            _uow.SaveChanges();
-            return _locationTypeFactory.Transform(lt);
+            try
+            {
+                var lt = _locationTypeFactory.Transform(newLocationType);
+                _uow.LocationTypes.Add(lt);
+                _uow.SaveChanges();
+                return _locationTypeFactory.Transform(lt);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
+        }
+
+        public bool DeleteLocationType(int id)
+        {
+            try
+            {
+                _uow.LocationTypes.Remove(id);
+                _uow.SaveChanges();
+                return true;
+            }
+            catch (DBConcurrencyException)
+            {
+                return false;
+            }
+
         }
 
         public List<LocationTypeDTO> GetAllLocationTypes()
@@ -39,7 +63,22 @@ namespace BL.Services
 
         public LocationTypeDTO GetLocationTypeById(int id)
         {
-             return _locationTypeFactory.Transform(_uow.LocationTypes.Find(id));
+            return _locationTypeFactory.Transform(_uow.LocationTypes.Find(id));
+        }
+
+        public LocationTypeDTO UpdateLocationType(LocationTypeDTO locationType)
+        {
+            try
+            {
+                var lt = _uow.LocationTypes.Update(_locationTypeFactory.Transform(locationType));
+                _uow.SaveChanges();
+                return _locationTypeFactory.Transform(lt);
+            }
+            catch (DBConcurrencyException)
+            {
+                return null;
+            }
+
         }
     }
 }
