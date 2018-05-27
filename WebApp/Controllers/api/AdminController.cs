@@ -48,7 +48,7 @@ namespace WebApp.Controllers.api
         [Route("Users")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public List<ApplicationUserDTO> GetAllUsers() => _applicationUserService.GetAllApplicationUsers();
-        public List<RoleDTO>
+        //public List<RoleDTO>
         #endregion
 
         #region Tickets
