@@ -10,5 +10,6 @@ namespace DAL.App.Interfaces.Repositories
     {
         IEnumerable<Performance> AllWithPerformers();
         Performance FindWithPerformers(int id);
+        IEnumerable<Performance> AllForEvent(int id);
     }
 }

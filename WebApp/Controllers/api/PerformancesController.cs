@@ -55,9 +55,9 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddLocation([FromBody] LocationDTO newLocation)
         {
-            if (newLocation== null) return BadRequest();
+            if (newLocation == null) return BadRequest();
 
-            if (TryValidateModel(newLocation) || newLocation.LocationId!=0)
+            if (TryValidateModel(newLocation) && newLocation.LocationId == 0)
             {
                 var l = _locationService.AddNewLocation(newLocation);
                 if (l == null) return StatusCode(418);
@@ -77,7 +77,7 @@ namespace WebApp.Controllers
         {
 
             if (location == null) return BadRequest();
-            if (TryValidateModel(location) || location.LocationId == 0)
+            if (TryValidateModel(location) || location.LocationId != 0)
             {
                 var l = _locationService.UpdateLocation(location);
                 if (l == null) return NotFound();
@@ -116,8 +116,8 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddEvent([FromBody] EventDTO newEvent)
         {
-            if ( newEvent== null) return BadRequest();
-            if (TryValidateModel(newEvent) || newEvent.EventId!=0)
+            if (newEvent == null) return BadRequest();
+            if (TryValidateModel(newEvent) && newEvent.EventId == 0)
             {
                 var e = _eventService.AddNewEvent(newEvent);
                 if (e == null) return StatusCode(418);
@@ -131,12 +131,12 @@ namespace WebApp.Controllers
         public List<EventDTO> EventsOfType([FromRoute] int id) => _eventService.GetAllEventsByTypeId(id);
 
         [HttpPut]
-        [Route("Events/{id}")]
+        [Route("Events")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult UpdateEvent([FromBody] EventDTO eventNew)
         {
             if (eventNew == null) return BadRequest();
-            if (TryValidateModel(eventNew) || eventNew.EventId == 0)
+            if (TryValidateModel(eventNew) || eventNew.EventId != 0)
             {
                 var e = _eventService.UpdateEvent(eventNew);
                 if (e == null) return NotFound();
@@ -176,7 +176,7 @@ namespace WebApp.Controllers
         public IActionResult AddPerformer([FromBody] PerformerDTO newPerformer)
         {
             if (newPerformer == null) return BadRequest();
-            if (TryValidateModel(newPerformer) || newPerformer.PerformerId!=0)
+            if (TryValidateModel(newPerformer) && newPerformer.PerformerId == 0)
             {
                 var p = _performerService.AddNewPerformer(newPerformer);
                 if (p == null) return StatusCode(418);
@@ -195,7 +195,7 @@ namespace WebApp.Controllers
         public IActionResult UpdatePerformer([FromBody] PerformerDTO performer)
         {
             if (performer == null) return BadRequest();
-            if (TryValidateModel(performer) || performer.PerformerId == 0)
+            if (TryValidateModel(performer) || performer.PerformerId != 0)
             {
                 var p = _performerService.UpdatePerformer(performer);
                 if (p == null) return NotFound();
@@ -228,6 +228,10 @@ namespace WebApp.Controllers
         public List<PerformanceDTO> GetPerformances() => _performanceService.GetPerformances();
 
         [HttpGet]
+        [Route("Performances/ForEvent/{id}")]
+        public List<PerformanceDTO> GetPerformancesForEvent([FromRoute] int id ) => _performanceService.GetPerformancesForEvent(id);
+
+        [HttpGet]
         [Route("Performances/{id}")]
         public PerformanceDTO GetPerformance([FromRoute] int id) => _performanceService.GetPerformanceById(id);
 
@@ -237,7 +241,7 @@ namespace WebApp.Controllers
         public IActionResult AddPerformance([FromBody] PerformanceDTO newPerformance)
         {
             if ( newPerformance == null) return BadRequest();
-            if (TryValidateModel(newPerformance) || newPerformance.PerformanceId !=0)
+            if (TryValidateModel(newPerformance) && newPerformance.PerformanceId ==0)
             {
                 var p = _performanceService.AddNewPerformance(newPerformance);
                 if (p == null) return StatusCode(418);
@@ -253,7 +257,7 @@ namespace WebApp.Controllers
         public IActionResult UpdatePerformance([FromBody] PerformanceDTO performance)
         {
             if ( performance== null) return BadRequest();
-            if (TryValidateModel(performance) || performance.PerformanceId == 0)
+            if (TryValidateModel(performance) || performance.PerformanceId != 0)
             {
                 var p = _performanceService.UpdatePerformance(performance);
                 if (p == null) return NotFound();

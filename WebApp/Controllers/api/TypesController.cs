@@ -63,7 +63,7 @@ namespace WebApp.Controllers.api
         {
             if (newTicketType == null) return BadRequest();
 
-            if (TryValidateModel(newTicketType) || newTicketType.TicketTypeId!=0)
+            if (TryValidateModel(newTicketType) && newTicketType.TicketTypeId==0)
             {
                 var tt = _ticketTypeService.AddNewTicketType(newTicketType);
                 if (tt == null) return StatusCode(418);
@@ -141,7 +141,7 @@ namespace WebApp.Controllers.api
         public IActionResult AddLocationType([FromBody] LocationTypeDTO newLocationType)
         {
             if (newLocationType == null) return BadRequest();
-            if (TryValidateModel(newLocationType) ||newLocationType.LocationTypeId != 0)
+            if (TryValidateModel(newLocationType) &&  newLocationType.LocationTypeId == 0)
             {
                 var lt = _locationTypeService.AddNewLocationType(newLocationType);
                 if (lt == null) return StatusCode(418);
@@ -214,7 +214,7 @@ namespace WebApp.Controllers.api
         {
             if (newPerformerType == null) return BadRequest();
 
-            if (TryValidateModel(newPerformerType) ||newPerformerType.PerformerTypeId !=0)
+            if (TryValidateModel(newPerformerType) && newPerformerType.PerformerTypeId ==0)
             {
                 var pt = _performerTypeService.AddNewPerformerType(newPerformerType);
                 if (pt == null) return StatusCode(418);
@@ -276,11 +276,11 @@ namespace WebApp.Controllers.api
         {
             if (newEventType== null) return BadRequest();
 
-            if (TryValidateModel(newEventType) ||newEventType.EventTypeId != 0)
+            if (TryValidateModel(newEventType) && newEventType.EventTypeId == 0)
             {
                 var et = _eventTypeService.AddNewEventType(newEventType);
                 if(et ==null) return StatusCode(418);
-                return Ok();
+                return Ok(et);
             }
 
             return BadRequest(Errors);
