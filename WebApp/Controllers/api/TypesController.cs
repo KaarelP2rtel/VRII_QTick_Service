@@ -67,7 +67,7 @@ namespace WebApp.Controllers.api
             {
                 var tt = _ticketTypeService.AddNewTicketType(newTicketType);
                 if (tt == null) return StatusCode(418);
-                return Ok();
+                return Ok(tt);
 
             }
 
@@ -89,7 +89,7 @@ namespace WebApp.Controllers.api
             {
                 var tt = _ticketTypeService.UpdateTicketType(ticketType);
                 if (tt == null) return NotFound();
-                return Ok();
+                return Ok(tt);
 
             }
 

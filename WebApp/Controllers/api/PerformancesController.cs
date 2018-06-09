@@ -199,7 +199,7 @@ namespace WebApp.Controllers
             {
                 var p = _performerService.UpdatePerformer(performer);
                 if (p == null) return NotFound();
-                return Ok();
+                return Ok(p);
             }
 
             return BadRequest(Errors);
