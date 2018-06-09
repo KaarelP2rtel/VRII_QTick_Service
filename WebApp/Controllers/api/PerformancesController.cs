@@ -77,7 +77,7 @@ namespace WebApp.Controllers
         {
 
             if (location == null) return BadRequest();
-            if (TryValidateModel(location) || location.LocationId != 0)
+            if (TryValidateModel(location) && location.LocationId != 0)
             {
                 var l = _locationService.UpdateLocation(location);
                 if (l == null) return NotFound();
@@ -136,7 +136,7 @@ namespace WebApp.Controllers
         public IActionResult UpdateEvent([FromBody] EventDTO eventNew)
         {
             if (eventNew == null) return BadRequest();
-            if (TryValidateModel(eventNew) || eventNew.EventId != 0)
+            if (TryValidateModel(eventNew) && eventNew.EventId != 0)
             {
                 var e = _eventService.UpdateEvent(eventNew);
                 if (e == null) return NotFound();
@@ -195,11 +195,11 @@ namespace WebApp.Controllers
         public IActionResult UpdatePerformer([FromBody] PerformerDTO performer)
         {
             if (performer == null) return BadRequest();
-            if (TryValidateModel(performer) || performer.PerformerId != 0)
+            if (TryValidateModel(performer) && performer.PerformerId != 0)
             {
                 var p = _performerService.UpdatePerformer(performer);
                 if (p == null) return NotFound();
-                return Ok();
+                return Ok(p);
             }
 
             return BadRequest(Errors);
@@ -257,7 +257,7 @@ namespace WebApp.Controllers
         public IActionResult UpdatePerformance([FromBody] PerformanceDTO performance)
         {
             if ( performance== null) return BadRequest();
-            if (TryValidateModel(performance) || performance.PerformanceId != 0)
+            if (TryValidateModel(performance) && performance.PerformanceId != 0)
             {
                 var p = _performanceService.UpdatePerformance(performance);
                 if (p == null) return NotFound();
