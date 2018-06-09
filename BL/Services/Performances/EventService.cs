@@ -16,12 +16,22 @@ namespace BL.Services
         private readonly IAppUnitOfWork _uow;
         private readonly IEventFactory _eventFactory;
 
+        /// <summary>
+        /// Constructor for the service, used to initialize AppUnitOfWork and EventFactory
+        /// </summary>
+        /// <param name="uow">AppUnitOfWork from Services and Startup.cs</param>
+        /// <param name="eventFactory">EventFactory from services, Startup.cs</param>
         public EventService(IAppUnitOfWork uow, IEventFactory eventFactory)
         {
             _uow = uow;
             _eventFactory = eventFactory;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newEvent"></param>
+        /// <returns></returns>
         public EventDTO AddNewEvent(EventDTO newEvent)
         {
             try

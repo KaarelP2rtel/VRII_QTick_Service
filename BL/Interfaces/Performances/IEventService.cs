@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BL.Interfaces
 {
+    /// <summary>
+    /// Interface for the EventService
+    /// </summary>
     public interface IEventService
     {
         List<EventDTO> GetAllEvents();
