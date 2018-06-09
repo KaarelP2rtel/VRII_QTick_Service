@@ -14,6 +14,9 @@ using Domain;
 
 namespace DAL.App.EF
 {
+    /// <summary>
+    /// This class is used to do work with the database. 
+    /// </summary>
     public class AppEFUnitOfWork : IAppUnitOfWork
     {
         private readonly ApplicationDbContext _applicationDbContext;
@@ -31,7 +34,10 @@ namespace DAL.App.EF
             }
         }
 
-
+        /// <summary>
+        /// Here are all of the Repositories which we will edit and use to edit information in database. 
+        /// To add and edit a domain to database it must be added here also.
+        /// </summary>
         public IEventRepository Events => GetCustomRepository<IEventRepository>();
         public IRepository<EventType> EventTypes => GetEntityRepository<EventType>();
         public IInvoiceRepository Invoices => GetCustomRepository<IInvoiceRepository>();
@@ -47,13 +53,20 @@ namespace DAL.App.EF
 
         public IUserRepository Users => _userRepository;
 
-        
 
+        /// <summary>
+        /// This must be added here because controllers will be using unitofwork and they need a way to save. 
+        /// This is used to save changes in the database after making changes. 
+        /// </summary>
         public void SaveChanges()
         {
             _applicationDbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// This is used to save changes (async) in the database after making changes. 
+        /// </summary>
+        /// <returns>Returns nothing</returns>
         public async Task SaveChangesAsync()
         {
             await _applicationDbContext.SaveChangesAsync();

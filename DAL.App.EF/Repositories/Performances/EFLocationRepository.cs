@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace DAL.App.EF.Repositories
 {
+    /// <summary>
+    /// The class used to change information in Location repository
+    /// </summary>
     public class EFLocationRepository : EFRepository<Location>, ILocationRepository
     {
         public EFLocationRepository(DbContext dataContext) : base(dataContext)
