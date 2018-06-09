@@ -85,7 +85,7 @@ namespace WebApp.Controllers.api
         {
             if (ticketType == null) return BadRequest();
             //Manual validation
-            if (TryValidateModel(ticketType) || ticketType.TicketTypeId == 0)
+            if (TryValidateModel(ticketType) && ticketType.TicketTypeId == 0)
             {
                 var tt = _ticketTypeService.UpdateTicketType(ticketType);
                 if (tt == null) return NotFound();
@@ -161,7 +161,7 @@ namespace WebApp.Controllers.api
         public IActionResult UpdateLocationType([FromBody] LocationTypeDTO locationType)
         {
             if (locationType == null) return BadRequest();
-            if (TryValidateModel(locationType) || locationType.LocationTypeId == 0)
+            if (TryValidateModel(locationType) && locationType.LocationTypeId == 0)
             {
                 var lt = _locationTypeService.UpdateLocationType(locationType);
                 if (lt == null) return NotFound();
@@ -232,7 +232,7 @@ namespace WebApp.Controllers.api
         {
             if ( performerType == null) return BadRequest();
 
-            if (TryValidateModel(performerType) || performerType.PerformerTypeId == 0)
+            if (TryValidateModel(performerType) && performerType.PerformerTypeId == 0)
             {
                 var pt = _performerTypeService.UpdatePerformerType(performerType);
                 if (pt == null) return NotFound();
@@ -293,7 +293,7 @@ namespace WebApp.Controllers.api
         {
             if (eventType == null) return BadRequest();
 
-            if (TryValidateModel(eventType) || eventType.EventTypeId == 0)
+            if (TryValidateModel(eventType) && eventType.EventTypeId == 0)
             {
                 var et = _eventTypeService.UpdateEventType(eventType);
                 if (et == null) return NotFound();
