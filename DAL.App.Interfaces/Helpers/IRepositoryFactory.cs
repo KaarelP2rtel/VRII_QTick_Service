@@ -5,6 +5,9 @@ using DAL.Interfaces;
 
 namespace DAL.App.Interfaces.Helpers
 {
+    /// <summary>
+    /// This interface is used to get the requiredRepositorys
+    /// </summary>
     public interface IRepositoryFactory
     {
         Func<IDataContext, object> GetCustomRepositoryFactory<TRepoInterface>() where TRepoInterface : class;

@@ -10,7 +10,10 @@ namespace DAL.App.Interfaces
 {
     public interface IAppUnitOfWork : IUnitOfWork
     {
-
+        /// <summary>
+        /// This is the interface which we will always use later to add things to the database
+        /// If we want to add something to database then it must be here also. 
+        /// </summary>
         IEventRepository Events { get; }
         IRepository<EventType> EventTypes { get; }
         IInvoiceRepository Invoices { get; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL.App.Interfaces.Repositories
 {
+    /// <summary>
+    /// Interface for the EventRepository
+    /// </summary>
     public interface IEventRepository : IRepository<Event>
     {
         IEnumerable<Event> AllByTypeId(int id);

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces.Repositories
 {
+    /// <summary>
+    /// This interface holds all of the ways that EntityFramework should be contacted 
+    /// by this application
+    /// </summary>
+    /// <typeparam name="TEntity">TEntity is the entity which we want to work with</typeparam>
     public interface IRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> All();

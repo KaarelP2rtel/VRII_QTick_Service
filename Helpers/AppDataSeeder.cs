@@ -8,18 +8,33 @@ using DAL.App.EF;
 
 namespace WebApp.Helpers
 {
+    /// <summary>
+    /// For Seeders 
+    /// </summary>
     public class AppDataSeeder
     {
+        /// <summary>
+        /// For Seeders initializing in AppDatabase
+        /// </summary>
+        /// <param name="context">Reads the context</param>
         public static void InitializeAppDatabase(ApplicationDbContext context)
         {
         }
 
+        /// <summary>
+        /// Adding user roles
+        /// </summary>
         private static readonly string[] Roles = new[]
         {
             "User",
             "Admin"
         };
 
+        /// <summary>
+        /// Initialize the Indetity of User
+        /// </summary>
+        /// <param name="userManager">usermanager width pwd</param>
+        /// <param name="roleManager">rolemanager width pwd</param>
         public static void InitializeIdentity(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {

@@ -7,6 +7,9 @@ using DAL.Interfaces.Repositories;
 
 namespace DAL.Interfaces
 {
+    /// <summary>
+    /// This interface used by IAppUnitOfWork
+    /// </summary>
     public interface IUnitOfWork
     {
         void SaveChanges();
