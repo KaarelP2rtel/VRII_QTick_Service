@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BL.Interfaces
 {
+    /// <summary>
+    /// Interface for PerformanceService
+    /// </summary>
     public interface IPerformanceService
     {
         List<PerformanceDTO> GetPerformances();

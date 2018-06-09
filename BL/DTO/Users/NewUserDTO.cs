@@ -10,10 +10,12 @@ namespace BL.DTO
         [Required]
         [MaxLength(200)]
         [DataType(DataType.EmailAddress)]
+        [MinLength(5)]
         public string UserName { get; set; }
 
         [Required]
         [MaxLength(100)]
+        [MinLength(5)]
         public string Name { get; set; }
 
         [Required]

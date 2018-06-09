@@ -5,6 +5,9 @@ using System.Text;
 
 namespace BL.Interfaces
 {
+    /// <summary>
+    /// Interface for LocationService
+    /// </summary>
     public interface ILocationService
     {
         List<LocationDTO> GetAllLocations();

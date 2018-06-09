@@ -6,6 +6,9 @@ using System.Text;
 
 namespace BL.Factories
 {
+    /// <summary>
+    /// Interface for LocationFactory
+    /// </summary>
     public interface ILocationFactory
     {
         LocationDTO Transform(Location l);
@@ -17,11 +20,21 @@ namespace BL.Factories
     {
         private readonly ILocationTypeFactory _locationTypeFactory;
 
+        /// <summary>
+        /// This factory used to get information from locationTypeFactory for LocationFactory
+        /// </summary>
+        /// <param name="locationTypeFactory"></param>
         public LocationFactory(ILocationTypeFactory locationTypeFactory)
         {
             _locationTypeFactory = locationTypeFactory;
         }
 
+        /// <summary>
+        /// This method transforms LocationDTO to Location
+        /// </summary>
+        /// <param name="l"></param>
+        /// <returns>LocationDTO of the Location</returns>
+        ///        
         public LocationDTO Transform(Location l)
         {
             if (l == null) return null;
@@ -35,6 +48,11 @@ namespace BL.Factories
             };
         }
 
+        /// <summary>
+        /// This method transforms Location to LocationDTO
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Location of the LocationDTO</returns>
         public Location Transform(LocationDTO dto)
         {
             if (dto == null) return null;
