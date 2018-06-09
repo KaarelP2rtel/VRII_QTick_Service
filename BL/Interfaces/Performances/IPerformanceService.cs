@@ -19,5 +19,6 @@ namespace BL.Interfaces
         bool DeletePerformance(int id);
         PerformanceDTO UpdatePerformance(PerformanceDTO performance);
         bool RemovePerformerFromPerformance(int performanceId, int performerId);
+        List<PerformanceDTO> GetPerformancesForEvent(int id);
     }
 }

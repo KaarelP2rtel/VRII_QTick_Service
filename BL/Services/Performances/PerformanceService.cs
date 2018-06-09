@@ -93,6 +93,11 @@ namespace BL.Services
             return _uow.Performances.All().Select(p => _performanceFactory.Transform(p)).ToList();
         }
 
+        public List<PerformanceDTO> GetPerformancesForEvent(int id)
+        {
+            return _uow.Performances.AllForEvent(id).Select(p => _performanceFactory.Transform(p)).ToList();
+        }
+
         public List<PerformanceDTO> GetPerformancesWithPerformers()
         {
             return _uow.Performances.AllWithPerformers().Select(p => _performanceFactory.TransformWithPerformers(p)).ToList();

@@ -24,7 +24,16 @@ namespace DAL.App.EF.Repositories
                 .ToList();
         }
 
-       
+        public IEnumerable<Performance> AllForEvent(int id)
+        {
+            return RepositoryDbSet
+                .Include(p => p.Event)
+                .Include(p => p.Location)
+                .Include(p => p.PerformancePerformers)
+                    .ThenInclude(pp => pp.Performer)
+                .Where(p => p.EventId==id)
+                .ToList();
+        }
 
         public IEnumerable<Performance> AllWithPerformers()
         {
