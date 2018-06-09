@@ -14,6 +14,7 @@ namespace WebApp.Controllers.api
     [Route("api/Types")]
     public class TypesController : Controller
     {
+        
         private readonly IEventTypeService _eventTypeService;
         private readonly ILocationTypeService _locationTypeService;
         private readonly IPerformerTypeService _performerTypeService;
@@ -39,17 +40,24 @@ namespace WebApp.Controllers.api
         }
         
         #region TicketTypes
+
         [HttpGet]
         [Route("Tickets")]
+        [ProducesResponseType(typeof(List<TicketTypeDTO>), 200)]
         public List<TicketTypeDTO> GetTicketTypes() => _ticketTypeService.GetAllTicketTypes();
 
         [HttpGet]
         [Route("Tickets/{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(TicketTypeDTO), 200)]
         public TicketTypeDTO GetTicketTypeById([FromRoute] int id) => _ticketTypeService.GetTicketTypeById(id);
 
         [HttpPost]
         [Route("Tickets")]
-        
+        [ProducesResponseType(401)]
+        [ProducesResponseType(typeof(TicketTypeDTO), 200)]
+        [ProducesResponseType(418)]
+        [ProducesResponseType(400)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddTicketType([FromBody] TicketTypeDTO newTicketType)
         {
@@ -68,6 +76,10 @@ namespace WebApp.Controllers.api
 
         [HttpPut]
         [Route("Tickets")]
+        [ProducesResponseType(typeof(TicketTypeDTO), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult UpdateTicketType([FromBody] TicketTypeDTO ticketType)
         {
@@ -87,6 +99,9 @@ namespace WebApp.Controllers.api
 
         [HttpDelete]
         [Route("Tickets/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult DeleteTicketType([FromRoute] int id)
         {
@@ -105,15 +120,23 @@ namespace WebApp.Controllers.api
         #region LocationTypes
         [HttpGet]
         [Route("Locations")]
+        [ProducesResponseType(typeof(List<LocationTypeDTO>), 200)]
+        [ProducesResponseType(204)]
         public List<LocationTypeDTO> GetLocationTypes() => _locationTypeService.GetAllLocationTypes();
 
         [HttpGet]
         [Route("Locations/{id}")]
-
+        [ProducesResponseType(typeof(LocationTypeDTO), 200)]
+        [ProducesResponseType(204)]
         public LocationTypeDTO GetLocationTypeById([FromRoute] int id) => _locationTypeService.GetLocationTypeById(id);
 
         [HttpPost]
         [Route("Locations")]
+        [ProducesResponseType(typeof(LocationTypeDTO), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(418)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddLocationType([FromBody] LocationTypeDTO newLocationType)
         {
@@ -122,7 +145,7 @@ namespace WebApp.Controllers.api
             {
                 var lt = _locationTypeService.AddNewLocationType(newLocationType);
                 if (lt == null) return StatusCode(418);
-                return Ok();
+                return Ok(lt);
             }
 
             return BadRequest(Errors);
@@ -130,6 +153,10 @@ namespace WebApp.Controllers.api
 
         [HttpPut]
         [Route("Locations")]
+        [ProducesResponseType(typeof(LocationTypeDTO), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult UpdateLocationType([FromBody] LocationTypeDTO locationType)
         {
@@ -138,7 +165,7 @@ namespace WebApp.Controllers.api
             {
                 var lt = _locationTypeService.UpdateLocationType(locationType);
                 if (lt == null) return NotFound();
-                return Ok();
+                return Ok(lt);
             }
 
             return BadRequest(Errors);
@@ -147,6 +174,10 @@ namespace WebApp.Controllers.api
 
         [HttpDelete]
         [Route("Locations/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult DeleteLocationType([FromRoute] int id)
         {
@@ -162,14 +193,22 @@ namespace WebApp.Controllers.api
         #region PerformerTypes
         [HttpGet]
         [Route("Performers")]
+        [ProducesResponseType(typeof(List<PerformerTypeDTO>), 200)]
         public List<PerformerTypeDTO> GetPerformerTypes() => _performerTypeService.GetAllPerformerTypes();
 
         [HttpGet]
         [Route("Performers{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(PerformerTypeDTO), 200)]
         public PerformerTypeDTO GetPerformerTypeById([FromRoute] int id) => _performerTypeService.GetPerformerTypeById(id);
 
         [HttpPost]
         [Route("Performers")]
+        [ProducesResponseType(typeof(PerformerTypeDTO), 200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(418)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult AddPerformerType([FromBody] PerformerTypeDTO newPerformerType)
         {
@@ -187,6 +226,7 @@ namespace WebApp.Controllers.api
 
         [HttpPut]
         [Route("Performers")]
+
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult UpdatePerformerType([FromBody] PerformerTypeDTO performerType)
         {
@@ -205,6 +245,10 @@ namespace WebApp.Controllers.api
 
         [HttpDelete]
         [Route("Performers/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Roles.Admin)]
         public IActionResult DeletePerformerType([FromRoute] int id)
         {
