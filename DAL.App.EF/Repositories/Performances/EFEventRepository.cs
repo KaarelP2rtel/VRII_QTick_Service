@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace DAL.App.EF.Repositories
 {
+    /// <summary>
+    /// The class used to change information in Event repository
+    /// </summary>
     public class EFEventRepository : EFRepository<Event>, IEventRepository
     {
         public EFEventRepository(DbContext dataContext) : base(dataContext)

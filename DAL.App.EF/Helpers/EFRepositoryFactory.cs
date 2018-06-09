@@ -10,11 +10,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF.Helpers
 {
+    /// <summary>
+    /// This class is used to get the acces to the repositories
+    /// </summary>
     public class EFRepositoryFactory : IRepositoryFactory
     {
+        /// <summary>
+        /// This is used to hold all of the DatabaseContexts. 
+        /// </summary>
         private readonly Dictionary<Type, Func<IDataContext, object>> _customRepositoryFactories
             = GetCustomRepoFactories();
 
+        /// <summary>
+        /// Used to create the dictionary of all the databasecontexts.
+        /// </summary>
+        /// <returns>Dictionary which contains all of the databaseContexts.</returns>
         private static Dictionary<Type, Func<IDataContext, object>> GetCustomRepoFactories()
         {
             return new Dictionary<Type, Func<IDataContext, object>>()
@@ -36,6 +46,11 @@ namespace DAL.App.EF.Helpers
             };
         }
 
+        /// <summary>
+        /// Here we try to get a Repository which we have created and added to the dictionary before.
+        /// </summary>
+        /// <typeparam name="TRepoInterface">Repository which we try to get</typeparam>
+        /// <returns>The custom repository we're searching for</returns>
         public Func<IDataContext, object> GetCustomRepositoryFactory<TRepoInterface>() where TRepoInterface : class
         {
             _customRepositoryFactories.TryGetValue(
@@ -44,10 +59,15 @@ namespace DAL.App.EF.Helpers
             );
             return factory;
         }
-
+        /// <summary>
+        /// This gets the standard repository and returns it 
+        /// </summary>
+        /// <typeparam name="TEntity">Repository we're searching for</typeparam>
+        /// <returns>the databasecontext we're looking for</returns>
         public Func<IDataContext, object> GetStandardRepositoryFactory<TEntity>() where TEntity : class
         {
-
+            // We use this return method to return datacontext as ApplicationDbContext
+            // Essentially I guess we could use - return new EFRepository<EFRepository<TEntity>() however we need to use the "as ApplicationDbContext" on next line.
             return (dataContext) => new EFRepository<TEntity>(dataContext as ApplicationDbContext);
         }
     }

@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.App.EF
 {
+    /// <summary>
+    /// Here are detailed all of the domains that will be included in the database. 
+    /// If you want to add something to database then this is the place to start. 
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDataContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
